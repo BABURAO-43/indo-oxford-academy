@@ -1,0 +1,181 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>IOA — Login</title>
+  <link rel="icon" href="assets/favicon.ico" />
+  <style>
+    body{font-family:Inter,system-ui,Segoe UI,Roboto; background:#f7f9fb;color:#102233;margin:0;padding:28px}
+    .wrap{max-width:880px;margin:0 auto}
+    .card{background:#fff;padding:18px;border-radius:12px;box-shadow:0 8px 30px rgba(2,10,30,0.06);margin-bottom:14px}
+    h2{margin:0 0 8px}
+    input{width:100%;padding:10px;border-radius:8px;border:1px solid #e6eef9;margin-top:8px}
+    button{padding:10px 14px;border-radius:8px;border:none;background:#063067;color:#fff;font-weight:700;cursor:pointer}
+    .ghost{background:transparent;border:1px solid #063067;color:#063067}
+    .row{display:flex;gap:10px}
+    .muted{color:#657786;font-size:13px}
+    .small{font-size:13px;color:#6b7a8a}
+    .center{text-align:center}
+    a.link{color:#063067;text-decoration:none;font-weight:700}
+  </style>
+</head>
+<body>
+  <main class="wrap">
+    <section class="card">
+      <div style="display:flex;justify-content:space-between;align-items:center">
+        <div><h2>Indo Oxford Academy — Login</h2><div class="small">Sign in to access portal & resources</div></div>
+        <div id="userArea" class="small"></div>
+      </div>
+    </section>
+
+    <section class="card" id="authCard">
+      <h3>Sign up (new)</h3>
+      <input id="suName" placeholder="Full name" />
+      <input id="suEmail" placeholder="Email" />
+      <input id="suPass" placeholder="Password" type="password" />
+      <div style="margin-top:8px" class="row">
+        <button id="btnSignup">Sign up</button>
+        <button id="btnSignupTeacher" class="ghost">Sign up as Teacher</button>
+      </div>
+
+      <hr style="margin:14px 0"/>
+
+      <h3>Sign in</h3>
+      <input id="siEmail" placeholder="Email" />
+      <input id="siPass" placeholder="Password" type="password" />
+      <div style="margin-top:8px" class="row">
+        <button id="btnLogin">Sign in</button>
+        <button id="btnGoogle" class="ghost">Sign in with Google</button>
+      </div>
+
+      <div style="margin-top:12px" class="small muted">
+        This is demo auth (Firebase). For production, review rules & email verification flows.
+      </div>
+    </section>
+
+    <section class="card" id="portalLinks" style="display:none">
+      <h3>Portal</h3>
+      <div id="welcome" class="small"></div>
+      <div style="margin-top:8px" class="row">
+        <button id="btnLogout" class="ghost">Logout</button>
+        <a class="link" id="goAdmin" href="admin.html" target="_blank" style="display:none">Open Admin (teacher)</a>
+        <a class="link" href="index.html">Return to Site</a>
+      </div>
+      <div style="margin-top:12px" id="profileBox" class="small"></div>
+    </section>
+
+    <section class="card">
+      <h3>Quick test</h3>
+      <div class="muted">After signup, open console (F12) and run <code>loadNotices().then(n=>console.log(n))</code></div>
+    </section>
+
+  </main>
+
+  <!-- Modular Firebase SDK -->
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/9.24.0/firebase-app.js";
+    import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, onAuthStateChanged, GoogleAuthProvider, signInWithPopup } from "https://www.gstatic.com/firebasejs/9.24.0/firebase-auth.js";
+    import { getFirestore, doc, setDoc, getDoc, collection, query, orderBy, getDocs, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/9.24.0/firebase-firestore.js";
+
+    // ---------- PASTE YOUR firebaseConfig BELOW ----------
+    const firebaseConfig = {
+      apiKey: "AIzaSyAIHBis4Sye1PdkbX1ENZa02_6YtJG874Y",
+      authDomain: "indooxfordacademy-94000.firebaseapp.com",
+      projectId: "indooxfordacademy-94000",
+      storageBucket: "indooxfordacademy-94000.firebasestorage.app",
+      messagingSenderId: "88109643719",
+      appId: "1:88109643719:web:0bf5bb98c213ea06e0cbe2",
+      measurementId: "G-C95MDD3MGN"
+    };
+    // -----------------------------------------------------
+
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+    const db = getFirestore(app);
+
+    // helpers
+    const el = id => document.getElementById(id);
+    const show = (id,ok)=> document.getElementById(id).style.display = ok ? 'block' : 'none';
+
+    // Signup
+    async function signup(name,email,password,role="student"){
+      const cred = await createUserWithEmailAndPassword(auth, email, password);
+      const uid = cred.user.uid;
+      await setDoc(doc(db,"users",uid), { name, email, role, createdAt: serverTimestamp() });
+      return cred.user;
+    }
+
+    // Login
+    async function login(email,password){
+      const cred = await signInWithEmailAndPassword(auth,email,password);
+      return cred.user;
+    }
+
+    // Google
+    async function googleSign(){
+      const provider = new GoogleAuthProvider();
+      const cred = await signInWithPopup(auth, provider);
+      const u = cred.user;
+      const uref = doc(db,"users",u.uid);
+      const snap = await getDoc(uref);
+      if(!snap.exists()){
+        await setDoc(uref, { name: u.displayName || "User", email: u.email, role: "student", createdAt: serverTimestamp() });
+      }
+      return u;
+    }
+
+    // logout
+    function doLogout(){ return signOut(auth); }
+
+    // load notices (demo)
+    async function loadNotices(){
+      const q = query(collection(db,"notices"), orderBy("createdAt","desc"));
+      const s = await getDocs(q);
+      return s.docs.map(d=>({id:d.id,...d.data()}));
+    }
+    window.loadNotices = loadNotices;
+
+    // UI wiring
+    el('btnSignup').addEventListener('click', async ()=>{
+      const name = el('suName').value.trim(), email = el('suEmail').value.trim(), pass = el('suPass').value;
+      if(!name||!email||!pass){ alert('Fill name, email, password'); return; }
+      try{ await signup(name,email,pass,"student"); alert('Signed up — now logged in'); } catch(e){ alert(e.message || e); }
+    });
+    el('btnSignupTeacher').addEventListener('click', async ()=>{
+      const name = el('suName').value.trim(), email = el('suEmail').value.trim(), pass = el('suPass').value;
+      if(!name||!email||!pass){ alert('Fill name, email, password'); return; }
+      try{ await signup(name,email,pass,"teacher"); alert('Signed up as teacher — now logged in'); } catch(e){ alert(e.message || e); }
+    });
+    el('btnLogin').addEventListener('click', async ()=>{
+      const email = el('siEmail').value.trim(), pass = el('siPass').value;
+      if(!email||!pass){ alert('Fill email, password'); return; }
+      try{ await login(email,pass); alert('Logged in'); } catch(e){ alert(e.message || e); }
+    });
+    el('btnGoogle').addEventListener('click', async ()=> {
+      try{ await googleSign(); alert('Logged in with Google'); } catch(e){ alert(e.message || e); }
+    });
+    el('btnLogout').addEventListener('click', async ()=> {
+      await doLogout(); alert('Logged out'); window.location.reload();
+    });
+
+    // auth state
+    onAuthStateChanged(auth, async (user)=>{
+      if(user){
+        show('authCard', false);
+        show('portalLinks', true);
+        const docu = await getDoc(doc(db,'users',user.uid));
+        const p = docu.exists() ? docu.data() : { name: user.displayName || user.email, role: 'student' };
+        el('welcome').textContent = `Hello, ${p.name} — role: ${p.role}`;
+        el('profileBox').textContent = `Email: ${user.email} • UID: ${user.uid}`;
+        if(p.role === 'teacher') el('goAdmin').style.display = 'inline';
+        el('userArea').textContent = p.name;
+      } else {
+        show('authCard', true);
+        show('portalLinks', false);
+        el('userArea').textContent = '';
+      }
+    });
+  </script>
+</body>
+</html>
