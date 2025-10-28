@@ -1,0 +1,290 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Indo Oxford Academy — Home</title>
+  <style>
+    :root{
+      --bg:#f6f8fb;
+      --nav:#0b3d91;
+      --accent:#d4af37;
+      --card:#ffffff;
+      --muted:#5b6b84;
+      --glass: rgba(11,61,145,0.06);
+      --radius:12px;
+      font-family: Inter, "Segoe UI", Roboto, Arial, sans-serif;
+    }
+    *{box-sizing:border-box}
+    body{margin:0;background:linear-gradient(180deg,var(--bg),#eef3fb);color:#102030}
+    .container{max-width:1100px;margin:0 auto;padding:28px}
+    header{background:var(--nav);color:white;padding:14px 20px;border-radius:0 0 14px 14px;box-shadow:0 6px 30px rgba(11,61,145,0.15)}
+    .brand{display:flex;align-items:center;gap:14px}
+    .logo{width:54px;height:54px;border-radius:10px;background:linear-gradient(135deg,var(--accent),#ffd27a);display:flex;align-items:center;justify-content:center;color:var(--nav);font-weight:800;font-size:20px}
+    nav{margin-left:auto}
+    .navlinks{display:flex;gap:12px;align-items:center}
+    .navlinks a{color:white;text-decoration:none;font-weight:600;padding:8px 12px;border-radius:8px}
+    .navlinks a:hover{background:rgba(255,255,255,0.06)}
+    .topbar{display:flex;align-items:center;gap:20px}
+    .hero{display:grid;grid-template-columns:1fr 360px;gap:24px;align-items:center;margin-top:20px}
+    .card{background:var(--card);padding:18px;border-radius:var(--radius);box-shadow:0 8px 24px rgba(16,32,48,0.06)}
+    h1{margin:0;font-size:28px;color:var(--nav)}
+    p.lead{color:var(--muted);margin:10px 0 0}
+    .cta{margin-top:16px;display:flex;gap:10px}
+    .btn{background:var(--nav);color:white;padding:10px 14px;border-radius:10px;text-decoration:none;font-weight:700}
+    .btn.ghost{background:transparent;border:1px solid var(--nav);color:var(--nav)}
+    .small{font-size:14px;color:var(--muted)}
+    /* sections */
+    section{margin-top:22px}
+    .grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+    .courses li, .faculty li{list-style:none;margin:10px 0;padding:12px;border-radius:10px;background:var(--glass);color:#05203a}
+    .timetable table{width:100%;border-collapse:collapse}
+    .timetable th,.timetable td{padding:10px;border-bottom:1px solid #e6eef9;text-align:left}
+    .notice{background:linear-gradient(180deg,#fff9e6,#fffef6);border-left:4px solid var(--accent);padding:12px;border-radius:8px}
+    .gallery{display:flex;gap:10px;flex-wrap:wrap}
+    .gallery img{width:calc(33% - 10px);border-radius:8px;object-fit:cover;height:110px}
+    /* portal */
+    .portal{display:grid;grid-template-columns:360px 1fr;gap:18px}
+    .loginbox input{width:100%;padding:10px;margin:8px 0;border-radius:8px;border:1px solid #e3edf9}
+    .loginbox button{width:100%;padding:10px;border-radius:8px;border:none;background:var(--nav);color:white;font-weight:700}
+    .teacher-profile{display:flex;gap:14px;align-items:flex-start}
+    .avatar{width:140px;height:140px;border-radius:12px;background:linear-gradient(135deg,#ffd27a,#f0c56b);display:flex;align-items:center;justify-content:center;font-weight:800;color:var(--nav);font-size:40px}
+    .subject-list{display:flex;flex-direction:column;gap:8px;margin-top:8px}
+    .subject{background:#f3f7ff;padding:10px;border-radius:8px;border:1px solid #e2eafc}
+    footer{margin-top:30px;text-align:center;color:var(--muted);font-size:14px;padding:20px}
+    /* responsive */
+    @media(max-width:900px){
+      .hero{grid-template-columns:1fr}
+      .portal{grid-template-columns:1fr}
+      .grid-3{grid-template-columns:1fr}
+      .gallery img{width:48%}
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container topbar">
+      <div class="brand">
+        <div class="logo">IOA</div>
+        <div>
+          <div style="font-weight:800;font-size:18px">Indo Oxford Academy</div>
+          <div style="font-size:12px;color:rgba(255,255,255,0.85)">Where curiosity meets care</div>
+        </div>
+      </div>
+
+      <nav class="navlinks">
+        <a href="#home">Home</a>
+        <a href="#about">About</a>
+        <a href="#courses">Courses</a>
+        <a href="#faculty">Faculty</a>
+        <a href="#portal">Portal</a>
+        <a href="#contact">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <section id="home" class="hero">
+      <div class="card">
+        <h1>Indo Oxford Academy</h1>
+        <p class="lead">A nurturing space for students from Nursery to Class 10 — strong academics, values, and creativity. Blended learning, personalised attention, and experienced faculty.</p>
+        <div class="cta">
+          <a class="btn" href="#portal">Student Portal</a>
+          <a class="btn ghost" href="#contact">Enroll Now</a>
+        </div>
+        <div style="margin-top:16px" class="small">Address: Indo Oxford Academy, (add street), (city), (state). Phone: +91-XXXXXXXXXX</div>
+      </div>
+
+      <aside class="card">
+        <div style="font-weight:700;color:var(--nav)">Quick Links</div>
+        <ul style="padding:0;margin:12px 0 0">
+          <li style="list-style:none;margin:8px 0"><a href="#notices" style="text-decoration:none;color:var(--nav)">Notices & Circulars</a></li>
+          <li style="list-style:none;margin:8px 0"><a href="#timetable" style="text-decoration:none;color:var(--nav)">Class Timetables</a></li>
+          <li style="list-style:none;margin:8px 0"><a href="#gallery" style="text-decoration:none;color:var(--nav)">Gallery</a></li>
+        </ul>
+      </aside>
+    </section>
+
+    <section id="about" class="card">
+      <h2>About Us</h2>
+      <p class="small">Indo Oxford Academy is committed to holistic development. We focus on foundational literacy and numeracy in early years, scaffolded learning in middle school, and exam readiness for Class 10. Our teachers blend traditional pedagogy with interactive digital tools.</p>
+    </section>
+
+    <section id="courses" class="card">
+      <h2>Courses & Programs</h2>
+      <div class="grid-3" style="margin-top:12px">
+        <div>
+          <h3>Primary (Nursery - Class 5)</h3>
+          <ul class="courses">
+            <li>Language & Literacy</li>
+            <li>Mathematics with manipulatives</li>
+            <li>Environmental Studies</li>
+            <li>Art & Activity</li>
+          </ul>
+        </div>
+        <div>
+          <h3>Middle (Class 6 - 8)</h3>
+          <ul class="courses">
+            <li>Science (practical focus)</li>
+            <li>Social Studies</li>
+            <li>Computer Basics</li>
+            <li>Workshops & Clubs</li>
+          </ul>
+        </div>
+        <div>
+          <h3>Senior (Class 9 - 10)</h3>
+          <ul class="courses">
+            <li>Subject mastery & board prep</li>
+            <li>Exam strategies & mock tests</li>
+            <li>Counselling & mentoring</li>
+            <li>Skill-building (coding, communication)</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section id="faculty" class="card">
+      <h2>Faculty Spotlight</h2>
+      <div class="grid-3" style="margin-top:12px">
+        <div>
+          <ul class="faculty">
+            <li><strong>Ms. Priya Sharma</strong><div class="small">Headmistress — Early Years & Literacy</div></li>
+            <li><strong>Mr. Rajesh Kumar</strong><div class="small">Science Coordinator (Class 6-8)</div></li>
+            <li><strong>Ms. Anjali Verma</strong><div class="small">Mathematics & Exam Prep</div></li>
+          </ul>
+        </div>
+        <div>
+          <ul class="faculty">
+            <li><strong>Mr. Jigyasu Kumar Singh</strong><div class="small">Teacher — Science, Social Studies, Computer, Maths (Classes 3-8)</div></li>
+            <li><strong>Ms. Neha</strong><div class="small">English & Language Arts</div></li>
+            <li><strong>Mr. Sunil</strong><div class="small">Physical Education & Activities</div></li>
+          </ul>
+        </div>
+        <div>
+          <h3>Why our teachers?</h3>
+          <p class="small">Experienced, patient, and trained in child-centered pedagogy. Regular professional development and classroom mentoring ensure quality teaching.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="notices" class="card">
+      <h2>Notices & Circulars</h2>
+      <div class="notice">
+        <strong>23 Oct 2025:</strong> Parent-teacher meeting scheduled on 3 Nov 2025. Venue: School auditorium. Attendance compulsory for at least one guardian.
+      </div>
+      <div style="height:10px"></div>
+      <div class="notice">
+        <strong>10 Oct 2025:</strong> Winter uniforms available at the school office from 20 Oct onwards.
+      </div>
+    </section>
+
+    <section id="gallery" class="card">
+      <h2>Gallery</h2>
+      <div class="gallery">
+        <img src="https://images.unsplash.com/photo-1523050854058-8df90110c9f1?q=80&w=800&auto=format&fit=crop" alt="school 1"/>
+        <img src="https://images.unsplash.com/photo-1496307042754-b4aa456c4a2d?q=80&w=800&auto=format&fit=crop" alt="school 2"/>
+        <img src="https://images.unsplash.com/photo-1509062522246-3755977927d7?q=80&w=800&auto=format&fit=crop" alt="school 3"/>
+      </div>
+    </section>
+
+    <section id="portal" class="card">
+      <h2>Student & Teacher Portal</h2>
+      <div class="portal" style="margin-top:12px">
+        <aside class="card loginbox">
+          <h3>Quick Login</h3>
+          <input placeholder="Username / Student ID" id="user" />
+          <input placeholder="Password" type="password" id="pass" />
+          <button onclick="alert('This is a demo login. Integrate with backend to enable.')">Sign In</button>
+          <div style="margin-top:12px;font-size:13px;color:var(--muted)">Forgot password? Contact admin at +91-XXXXXXXX</div>
+          <div style="margin-top:12px">
+            <strong>Resources</strong>
+            <ul style="margin:8px 0;padding-left:18px;color:var(--muted)">
+              <li><a href="#timetable">Class Timetables</a></li>
+              <li><a href="#syllabus">Syllabus & Worksheets</a></li>
+              <li><a href="#notices">Notices</a></li>
+            </ul>
+          </div>
+        </aside>
+
+        <div>
+          <div id="timetable" class="card timetable">
+            <h3>Sample Class Timetable — Class 6 (Mon-Fri)</h3>
+            <table>
+              <thead><tr><th>Time</th><th>Mon</th><th>Tue</th><th>Wed</th><th>Thu</th><th>Fri</th></tr></thead>
+              <tbody>
+                <tr><td>9:00 - 9:40</td><td>Math</td><td>Science</td><td>English</td><td>Computer</td><td>EVS</td></tr>
+                <tr><td>9:45 - 10:25</td><td>Science</td><td>Math</td><td>Social</td><td>Math</td><td>English</td></tr>
+                <tr><td>10:40 - 11:20</td><td>English</td><td>Library</td><td>Computer</td><td>Science</td><td>Activity</td></tr>
+                <tr><td>11:30 - 12:10</td><td>Social</td><td>Activity</td><td>Math</td><td>English</td><td>Sports</td></tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div id="syllabus" class="card" style="margin-top:12px">
+            <h3>Syllabus & Downloads</h3>
+            <p class="small">Click to download sample worksheets, lesson plans, and exam schedules.</p>
+            <ul style="padding-left:18px">
+              <li><a href="#" onclick="alert('Demo file: integrate with server to provide real downloads')">Class 6 - Science Worksheet (PDF)</a></li>
+              <li><a href="#" onclick="alert('Demo file: integrate with server to provide real downloads')">Class 7 - Maths Revision (PDF)</a></li>
+              <li><a href="#" onclick="alert('Demo file: integrate with server to provide real downloads')">Teacher Lesson Plan Template (DOCX)</a></li>
+            </ul>
+          </div>
+
+          <div class="card" style="margin-top:12px">
+            <h3>Live Notices</h3>
+            <ul style="padding-left:18px">
+              <li>Exam Schedule for Term 1 released — check notices.</li>
+              <li>Art Exhibition on 15 Nov — student submissions open.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="teacher" class="card">
+      <h2>Teacher Profile — Mr. Jigyasu Kumar Singh</h2>
+      <div class="teacher-profile">
+        <div class="avatar">J</div>
+        <div>
+          <div style="font-weight:800;color:var(--nav)">Mr. Jigyasu Kumar Singh</div>
+          <div class="small">Science, Social Studies, Computer, Mathematics — Classes 3 to 8</div>
+          <p style="margin-top:8px" class="small">Experienced B.Ed teacher combining subject mastery with interactive, student-centered methods. Focus areas: conceptual clarity, hands-on experiments, and exam strategy.</p>
+
+          <div class="subject-list" style="margin-top:12px">
+            <div class="subject"><strong>Subjects:</strong> Science, Social Science, Computer, Maths</div>
+            <div class="subject"><strong>Office Hours:</strong> Mon/Wed/Fri — 4:00 PM to 5:30 PM</div>
+            <div class="subject"><strong>Contact:</strong> j.k.singh@indooxford.edu (demo)</div>
+            <div class="subject"><strong>Quick Links:</strong> <a href="#syllabus">Class resources</a> • <a href="#notices">Notices</a></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact" class="card">
+      <h2>Contact & Enroll</h2>
+      <p class="small">For admissions, queries, and appointments, contact our office:</p>
+      <p style="font-weight:700">Phone: +91-XXXXXXXXXX • Email: admissions@indooxford.academy</p>
+      <form onsubmit="event.preventDefault(); alert('Thank you — form submitted (demo). Integrate backend to process.')">
+        <input style="width:100%;padding:10px;margin:8px 0;border-radius:8px;border:1px solid #e6eef9" placeholder="Your name" required />
+        <input style="width:100%;padding:10px;margin:8px 0;border-radius:8px;border:1px solid #e6eef9" placeholder="Phone / Email" required />
+        <textarea style="width:100%;padding:10px;margin:8px 0;border-radius:8px;border:1px solid #e6eef9" placeholder="Message (grade, inquiry)"></textarea>
+        <button style="background:var(--nav);color:white;padding:10px 14px;border-radius:8px;border:none;font-weight:700" type="submit">Send Enquiry</button>
+      </form>
+    </section>
+
+    <footer>
+      © Indo Oxford Academy — Designed (demo) • For real deployment, integrate with your server for logins, downloads, and updates.
+    </footer>
+  </main>
+
+  <script>
+    // simple ripple: highlight nav current section on click
+    document.querySelectorAll('nav a').forEach(a=>{
+      a.addEventListener('click', (e)=>{
+        document.querySelectorAll('nav a').forEach(x=>x.style.opacity=1);
+        a.style.opacity=1;
+      });
+    });
+  </script>
+</body>
+</html>
