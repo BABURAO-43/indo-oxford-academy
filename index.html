@@ -1,362 +1,205 @@
 <!doctype html>
 <html lang="en">
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>Indo Oxford Academy — Where Curiosity Meets Care</title>
-<link rel="icon" href="assets/favicon.ico" />
-<meta name="theme-color" content="#063067" />
-<style>
-  :root{
-    --bg: #f7f9fb;
-    --nav: #063067;
-    --gold: #d4af37;
-    --card: #ffffff;
-    --muted: #62758a;
-    --glass: rgba(6,48,103,0.04);
-    --radius:14px;
-    --maxw:1100px;
-    --ease: cubic-bezier(.2,.9,.3,1);
-  }
-  *{box-sizing:border-box}
-  html,body{height:100%;margin:0;font-family:Inter, "Segoe UI", Roboto, system-ui, -apple-system; color:#0f2130; background:linear-gradient(180deg,#fbfcfe,var(--bg)); -webkit-font-smoothing:antialiased;}
-  a{color:inherit}
-  .wrap{max-width:var(--maxw);margin:28px auto;padding:18px}
-  header{position:sticky;top:0;backdrop-filter: blur(6px);background:rgba(255,255,255,0.66);border-bottom:1px solid rgba(6,48,103,0.04);z-index:40}
-  .header-inner{max-width:var(--maxw);margin:0 auto;display:flex;align-items:center;gap:18px;padding:12px 18px}
-  .brand{flex:1;display:flex;flex-direction:column;align-items:center;gap:6px;padding:6px 0}
-  .brand img{height:72px;width:auto;display:block}
-  .brand h1{margin:0;font-size:18px;color:var(--nav);letter-spacing:0.2px}
-  .brand p{margin:0;font-size:12px;color:var(--muted)}
-  nav{display:flex;gap:12px;align-items:center}
-  nav a{padding:8px 12px;border-radius:10px;text-decoration:none;font-weight:600;color:var(--nav);font-size:14px;opacity:0.95}
-  nav a:hover{background:rgba(6,48,103,0.06)}
-  .hero{display:grid;grid-template-columns:1fr 360px;gap:22px;align-items:center;margin-top:22px}
-  .card{background:var(--card);padding:20px;border-radius:var(--radius);box-shadow:0 10px 30px rgba(16,32,48,0.06);transition:transform .35s var(--ease),box-shadow .35s var(--ease)}
-  .card:hover{transform:translateY(-6px);box-shadow:0 18px 40px rgba(16,32,48,0.08)}
-  h2{margin:0;color:var(--nav);font-size:22px}
-  .lead{color:var(--muted);margin-top:8px;font-size:15px;line-height:1.6}
-  .cta-row{margin-top:16px;display:flex;gap:10px;flex-wrap:wrap}
-  .btn{background:var(--nav);color:white;padding:10px 14px;border-radius:10px;text-decoration:none;font-weight:700;display:inline-block}
-  .btn.ghost{background:transparent;border:1px solid var(--nav);color:var(--nav)}
-  .info{font-size:13px;color:var(--muted);margin-top:12px}
-  /* cards grid */
-  .grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:14px}
-  .courses li,.faculty li{list-style:none;padding:12px;border-radius:10px;background:var(--glass);color:var(--nav);margin-bottom:8px}
-  /* timetable */
-  .timetable table{width:100%;border-collapse:collapse}
-  .timetable th,.timetable td{padding:10px;border-bottom:1px solid #eef4fb;text-align:left;font-size:14px;color:#123148}
-  /* notices */
-  .notice{background:linear-gradient(180deg,#fffaf0,#fffefc);border-left:4px solid var(--gold);padding:12px;border-radius:10px}
-  /* gallery */
-  .gallery{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
-  .gallery img{width:100%;height:160px;object-fit:cover;border-radius:10px;display:block;cursor:pointer;transition:transform .25s var(--ease)}
-  .gallery img:hover{transform:scale(1.03)}
-  /* portal */
-  .portal{display:grid;grid-template-columns:320px 1fr;gap:18px}
-  .loginbox input, .loginbox textarea{width:100%;padding:10px;margin-top:8px;border-radius:8px;border:1px solid #e6eef9}
-  .loginbox button{width:100%;padding:10px;border-radius:8px;border:none;background:var(--nav);color:white;font-weight:700}
-  /* teacher */
-  .teacher-profile{display:flex;gap:14px;align-items:flex-start}
-  .avatar{width:120px;height:120px;border-radius:12px;background:linear-gradient(135deg,#ffd27a,#f0c56b);display:flex;align-items:center;justify-content:center;font-weight:800;color:var(--nav);font-size:36px}
-  .subject{background:#f3f7ff;padding:10px;border-radius:8px;border:1px solid #e6eefc}
-  footer{margin-top:30px;text-align:center;color:var(--muted);font-size:14px;padding:20px}
-  /* small screens */
-  @media(max-width:980px){
-    .hero{grid-template-columns:1fr}
-    .portal{grid-template-columns:1fr}
-    .grid-3{grid-template-columns:1fr}
-    .gallery{grid-template-columns:repeat(2,1fr)}
-    header{position:relative}
-  }
-  /* small reveal animations */
-  .reveal{opacity:0;transform:translateY(8px);transition:opacity .6s var(--ease),transform .6s var(--ease)}
-  .reveal.show{opacity:1;transform:none}
-  /* subtle underline echo */
-  .brand-underline{height:4px;width:120px;background:linear-gradient(90deg,var(--gold),#f7d88a);border-radius:4px;margin-top:6px}
-  /* tiny lightbox */
-  .lightbox{position:fixed;inset:0;background:rgba(6,6,10,0.6);display:flex;align-items:center;justify-content:center;padding:18px;visibility:hidden;opacity:0;transition:opacity .25s}
-  .lightbox.show{visibility:visible;opacity:1}
-  .lightbox img{max-width:100%;max-height:86vh;border-radius:10px;box-shadow:0 20px 50px rgba(2,10,30,0.6)}
-  /* skip link for accessibility */
-  .skip{position:absolute;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden}
-</style>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Indo Oxford Academy</title>
+  <meta name="description" content="Indo Oxford Academy — Where curiosity meets care" />
+  <style>
+    /* Simple clean styles (self-contained) */
+    :root{
+      --brand:#0b4f8a; --muted:#6b7280; --card:#ffffff;
+      --bg:#f1f6fa; --radius:12px;
+    }
+    html,body{height:100%;margin:0;font-family:Inter,system-ui,Segoe UI,Arial;color:#0f1724;background:var(--bg);}
+    a{color:var(--brand);text-decoration:none}
+    header{background:linear-gradient(180deg,#083b6a 0,#0b4f8a 100%);color:#fff;padding:22px 18px;border-bottom-left-radius:18px;border-bottom-right-radius:18px;box-shadow:0 4px 20px rgba(11,79,138,0.08)}
+    .wrap{max-width:1100px;margin:0 auto}
+    .nav{display:flex;align-items:center;gap:18px;justify-content:space-between}
+    .brand{display:flex;align-items:center;gap:12px}
+    .brand h1{margin:0;font-size:20px;letter-spacing:0.2px}
+    .nav-links{display:flex;gap:18px;align-items:center}
+    .hero{background:var(--card);margin:18px auto;padding:22px;border-radius:14px;box-shadow:0 8px 30px rgba(12,26,40,0.04)}
+    .hero h2{margin:0 0 8px;font-size:26px;color:#062244}
+    .buttons{display:flex;gap:12px;margin-top:14px}
+    .btn{padding:10px 16px;border-radius:10px;border:0;background:var(--brand);color:#fff;cursor:pointer}
+    .btn-outline{background:transparent;border:2px solid rgba(11,79,138,0.12);color:var(--brand)}
+    /* Notices */
+    #ioa-notices{max-width:980px;margin:18px auto;padding:0 18px}
+    .card{background:var(--card);padding:16px;border-radius:12px;box-shadow:0 6px 20px rgba(8,20,40,0.04)}
+    .notice-item{padding:12px 0;border-bottom:1px solid #eef2f6}
+    .muted{color:var(--muted)}
+    /* Top-right widget */
+    #ioa-user-widget{position:fixed;right:18px;top:12px;z-index:999;font-family:Inter,system-ui;}
+    #ioa-user{display:none;align-items:center;gap:8px}
+    #ioa-hello{background:#fff;padding:8px 10px;border-radius:8px;border:1px solid rgba(11,79,138,0.06);font-weight:600;color:var(--brand)}
+    #ioa-logout{margin-left:8px;padding:8px 10px;border-radius:8px;border:0;background:var(--brand);color:#fff;cursor:pointer}
+    /* mobile adjustments */
+    @media(min-width:880px){ .nav-links{gap:26px} }
+    footer{max-width:980px;margin:26px auto;padding:16px;color:var(--muted);font-size:14px}
+  </style>
 </head>
 <body>
-<a class="skip" href="#main">Skip to content</a>
-
-<header>
-  <div class="header-inner wrap" role="banner">
-    <div class="brand" aria-hidden="false">
-      <!-- centered wordmark -->
-      <img src="assets/logo-light.png" alt="Indo Oxford Academy — Where Curiosity Meets Care" id="logoImg">
-      <div class="brand-underline" aria-hidden="true"></div>
+  <!-- top user widget (auto-updated by JS) -->
+  <div id="ioa-user-widget">
+    <div id="ioa-guest">
+      <a href="./auth-ui.html" style="text-decoration:none;color:#fff;background:transparent;padding:8px 10px;border-radius:8px;border:1px solid rgba(255,255,255,0.14)">Login / Sign up</a>
     </div>
-
-    <nav role="navigation" aria-label="Main navigation">
-      <a href="#home">Home</a>
-      <a href="#about">About</a>
-      <a href="#courses">Courses</a>
-      <a href="#faculty">Faculty</a>
-      <a href="#portal">Portal</a>
-      <a href="#contact">Contact</a>
-    </nav>
+    <div id="ioa-user">
+      <span id="ioa-hello"></span>
+      <button id="ioa-logout">Logout</button>
+      <a id="ioa-admin" href="./admin.html" style="display:none;margin-left:8px;padding:8px 10px;border-radius:8px;border:1px solid #fff;color:#fff;text-decoration:none;background:transparent">Admin</a>
+    </div>
   </div>
-</header>
 
-<main id="main" class="wrap" role="main">
-  <section id="home" class="hero reveal">
-    <div class="card">
-      <h2>Welcome to Indo Oxford Academy</h2>
-      <p class="lead">A nurturing space for students from Nursery to Class 10 — strong academics, values, and creativity. Blended learning, personalised attention, and experienced faculty.</p>
-      <div class="cta-row">
-        <a class="btn" href="#portal">Student Portal</a>
-        <a class="btn ghost" href="#contact">Enroll Now</a>
+  <header>
+    <div class="wrap nav">
+      <div class="brand">
+        <img src="logo-dark.png" alt="IOA" style="height:44px;border-radius:8px;background:#fff;padding:4px">
+        <div>
+          <h1>Indo Oxford Academy</h1>
+          <div style="font-size:12px;color:rgba(255,255,255,0.85);margin-top:4px">Where curiosity meets care — Estd. 2012</div>
+        </div>
       </div>
-      <div class="info">Address: Indo Oxford Academy — (your street), (city), (state) • Phone: +91-XXXXXXXXXX</div>
+
+      <nav class="nav-links" aria-label="Main">
+        <a href="#home" style="color:#fff;font-weight:600">Home</a>
+        <a href="#about" style="color:#fff">About</a>
+        <a href="#courses" style="color:#fff">Courses</a>
+        <a href="#faculty" style="color:#fff">Faculty</a>
+        <a href="./auth-ui.html" style="color:#fff">Portal</a>
+        <a href="#contact" style="color:#fff">Contact</a>
+      </nav>
     </div>
+  </header>
 
-    <aside class="card small reveal" aria-labelledby="quickLinks">
-      <div id="quickLinks" style="font-weight:700;color:var(--nav)">Quick Links</div>
-      <ul style="padding-left:16px;margin-top:10px;color:var(--muted);line-height:1.8">
-        <li><a href="#notices">Notices & Circulars</a></li>
-        <li><a href="#timetable">Class Timetables</a></li>
-        <li><a href="#gallery">Gallery</a></li>
-      </ul>
-    </aside>
-  </section>
-
-  <section id="about" class="card reveal">
-    <h2>About Us</h2>
-    <p class="lead">Indo Oxford Academy was founded to blend rigorous academics with kindness. Our teachers focus on conceptual clarity, activity-based learning, and emotional growth. We prepare students for life — not just exams.</p>
-  </section>
-
-  <section id="courses" class="card reveal">
-    <h2>Courses & Programs</h2>
-    <div class="grid-3" style="margin-top:12px">
-      <div>
-        <h3>Primary (Nursery - Class 5)</h3>
-        <ul class="courses">
-          <li>Language & Literacy</li>
-          <li>Mathematics with manipulatives</li>
-          <li>Environmental Studies & Activities</li>
-          <li>Art & Music</li>
-        </ul>
+  <main class="wrap" id="home">
+    <section class="hero" role="region" aria-label="Hero">
+      <h2>Indo Oxford Academy</h2>
+      <p class="muted">A nurturing space for students from Nursery to Class 10 — strong academics, values, and creativity. Blended learning, personalised attention, and experienced faculty.</p>
+      <div class="buttons">
+        <a class="btn" href="./auth-ui.html">Student Portal</a>
+        <a class="btn btn-outline" href="#contact">Enroll Now</a>
       </div>
-      <div>
-        <h3>Middle (Class 6 - 8)</h3>
-        <ul class="courses">
-          <li>Science (hands-on labs)</li>
-          <li>Social Studies & Value Education</li>
-          <li>Computer Basics & Digital Literacy</li>
-          <li>Clubs & Projects</li>
-        </ul>
-      </div>
-      <div>
-        <h3>Senior (Class 9 - 10)</h3>
-        <ul class="courses">
-          <li>Subject mastery & board preparation</li>
-          <li>Exam strategies, mock tests</li>
-          <li>Career counselling & mentoring</li>
-          <li>Skill building: coding, communication</li>
-        </ul>
-      </div>
-    </div>
-  </section>
+    </section>
 
-  <section id="faculty" class="card reveal">
-    <h2>Faculty Spotlight</h2>
-    <div class="grid-3" style="margin-top:12px">
-      <div>
-        <ul class="faculty">
-          <li><strong>Ms. Priya Sharma</strong><div class="small">Headmistress — Early Years & Literacy</div></li>
-          <li><strong>Mr. Rajesh Kumar</strong><div class="small">Science Coordinator (Class 6-8)</div></li>
-          <li><strong>Ms. Anjali Verma</strong><div class="small">Mathematics & Exam Prep</div></li>
-        </ul>
+    <!-- Notices (auto loaded) -->
+    <section id="ioa-notices">
+      <div class="card">
+        <h3 style="margin:0 0 10px;color:var(--brand)">Notices</h3>
+        <div id="ioa-notice-list" class="muted">Loading notices…</div>
       </div>
-      <div>
-        <ul class="faculty">
-          <li><strong>Mr. Jigyasu Kumar Singh</strong><div class="small">Science, Social Studies, Computer, Maths (Classes 3-8)</div></li>
-          <li><strong>Ms. Neha</strong><div class="small">English & Language Arts</div></li>
-          <li><strong>Mr. Sunil</strong><div class="small">Physical Education & Activities</div></li>
-        </ul>
-      </div>
-      <div>
-        <h3>Why our teachers?</h3>
-        <p class="small">Experienced, patient, and trained in child-centered pedagogy. Regular professional development and classroom mentoring ensure quality teaching.</p>
-      </div>
-    </div>
-  </section>
+    </section>
 
-  <section id="notices" class="card reveal">
-    <h2>Notices & Circulars</h2>
-    <div class="notice"><strong>23 Oct 2025:</strong> Parent-teacher meeting scheduled on 3 Nov 2025. Venue: School auditorium.</div>
-    <div style="height:10px"></div>
-    <div class="notice"><strong>10 Oct 2025:</strong> Winter uniforms available at the school office from 20 Oct onwards.</div>
-  </section>
-
-  <section id="gallery" class="card reveal">
-    <h2>Gallery</h2>
-    <div class="gallery" id="galleryGrid">
-      <img src="https://images.unsplash.com/photo-1523050854058-8df90110c9f1?q=80&w=900&auto=format&fit=crop" alt="School life 1">
-      <img src="https://images.unsplash.com/photo-1496307042754-b4aa456c4a2d?q=80&w=900&auto=format&fit=crop" alt="School life 2">
-      <img src="https://images.unsplash.com/photo-1509062522246-3755977927d7?q=80&w=900&auto=format&fit=crop" alt="School life 3">
-    </div>
-  </section>
-
-  <section id="portal" class="card reveal">
-    <h2>Student & Teacher Portal</h2>
-    <div class="portal">
-      <aside class="card loginbox">
-        <h3>Quick Login</h3>
-        <input placeholder="Username / Student ID" id="user" />
-        <input placeholder="Password" type="password" id="pass" />
-        <button onclick="alert('Demo login — integrate backend to enable real access')">Sign In</button>
-        <div style="margin-top:12px;font-size:13px;color:var(--muted)">Forgot password? Contact admin at +91-XXXXXXXX</div>
+    <!-- Sample: timetable or other content -->
+    <section style="max-width:980px;margin:18px auto;padding:0 18px">
+      <div class="card" style="margin-top:18px">
+        <h3 style="margin:0 0 8px;color:var(--brand)">Student & Teacher Portal</h3>
+        <p class="muted">Use the Portal link to sign in. After signing in, your name will appear at the top-right — no new page needed.</p>
         <div style="margin-top:12px">
-          <strong>Resources</strong>
-          <ul style="margin:8px 0;padding-left:18px;color:var(--muted)">
+          <strong>Quick Links</strong>
+          <ul style="margin-top:8px;color:var(--muted)">
             <li><a href="#timetable">Class Timetables</a></li>
             <li><a href="#syllabus">Syllabus & Worksheets</a></li>
             <li><a href="#notices">Notices</a></li>
           </ul>
         </div>
-      </aside>
-
-      <div>
-        <div id="timetable" class="card timetable">
-          <h3>Sample Class Timetable — Class 6 (Mon-Fri)</h3>
-          <table aria-label="Class 6 timetable">
-            <thead><tr><th>Time</th><th>Mon</th><th>Tue</th><th>Wed</th><th>Thu</th><th>Fri</th></tr></thead>
-            <tbody>
-              <tr><td>9:00 - 9:40</td><td>Math</td><td>Science</td><td>English</td><td>Computer</td><td>EVS</td></tr>
-              <tr><td>9:45 - 10:25</td><td>Science</td><td>Math</td><td>Social</td><td>Math</td><td>English</td></tr>
-              <tr><td>10:40 - 11:20</td><td>English</td><td>Library</td><td>Computer</td><td>Science</td><td>Activity</td></tr>
-              <tr><td>11:30 - 12:10</td><td>Social</td><td>Activity</td><td>Math</td><td>English</td><td>Sports</td></tr>
-            </tbody>
-          </table>
-        </div>
-
-        <div id="syllabus" class="card" style="margin-top:12px">
-          <h3>Syllabus & Downloads</h3>
-          <p class="small">Click to download sample worksheets, lesson plans, and exam schedules.</p>
-          <ul style="padding-left:18px">
-            <li><a href="#" onclick="alert('Demo file — integrate with server to enable real downloads')">Class 6 - Science Worksheet (PDF)</a></li>
-            <li><a href="#" onclick="alert('Demo file — integrate with server to enable real downloads')">Class 7 - Maths Revision (PDF)</a></li>
-            <li><a href="#" onclick="alert('Demo file — integrate with server to enable real downloads')">Teacher Lesson Plan Template (DOCX)</a></li>
-          </ul>
-        </div>
-
-        <div class="card" style="margin-top:12px">
-          <h3>Live Notices</h3>
-          <ul style="padding-left:18px">
-            <li>Exam Schedule for Term 1 released — check notices.</li>
-            <li>Art Exhibition on 15 Nov — student submissions open.</li>
-          </ul>
-        </div>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <section id="teacher" class="card reveal">
-    <h2>Teacher Profile — Mr. Jigyasu Kumar Singh</h2>
-    <div class="teacher-profile">
-      <div class="avatar">J</div>
-      <div>
-        <div style="font-weight:800;color:var(--nav)">Mr. Jigyasu Kumar Singh</div>
-        <div class="small">Science, Social Studies, Computer, Mathematics — Classes 3 to 8</div>
-        <p class="small" style="margin-top:8px">B.Ed teacher combining subject mastery with interactive, student-centered methods. Focus: conceptual clarity, hands-on experiments, exam strategy.</p>
+    <!-- Footer sample -->
+    <footer>
+      Indo Oxford Academy — Address: (Lohardaga), (835302), (Jharkhand). Phone: +91-9341192018
+    </footer>
+  </main>
 
-        <div style="margin-top:12px">
-          <div class="subject"><strong>Subjects:</strong> Science, Social Science, Computer, Maths</div>
-          <div class="subject"><strong>Office Hours:</strong> Mon/Wed/Fri — 4:00 PM to 5:30 PM</div>
-          <div class="subject"><strong>Contact:</strong> j.k.singh@indooxford.edu (demo)</div>
-        </div>
-      </div>
-    </div>
-  </section>
+  <!-- ======= Firebase + app logic (no build tools required) =======
+       Replace below with your own config if you ever create a new project.
+  -->
+  <script type="module">
+    // ---- Firebase config (your project's config) ----
+    const firebaseConfig = {
+      apiKey: "AIzaSyAIHBis4Sye1PdkbX1ENZa02_6YtJG874Y",
+      authDomain: "indooxfordacademy-94000.firebaseapp.com",
+      projectId: "indooxfordacademy-94000",
+      storageBucket: "indooxfordacademy-94000.firebasestorage.app",
+      messagingSenderId: "88109643719",
+      appId: "1:88109643719:web:0bf5bb98c213ea06e0cbe2",
+      measurementId: "G-C95MDD3MGN"
+    };
+    // -------------------------------------------------
 
-  <section id="contact" class="card reveal">
-    <h2>Contact & Enroll</h2>
-    <p class="small">For admissions, queries, and appointments, contact our office or send a message using the form below.</p>
+    // import modular SDK (CDN)
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-app.js";
+    import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-auth.js";
+    import { getFirestore, collection, query, orderBy, getDocs, limit, doc, getDoc } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore.js";
 
-    <!-- Replace FORM_ACTION with your Formspree endpoint or another form handler -->
-    <form id="contactForm" action="https://formspree.io/f/mwkajnqk" method="POST">
-      <input name="name" placeholder="Your name" required />
-      <input name="email" placeholder="Email or phone" required style="margin-top:8px" />
-      <textarea name="message" placeholder="Message (grade, inquiry)" style="margin-top:8px" rows="4"></textarea>
-      <div style="display:flex;gap:10px;margin-top:10px">
-        <button class="btn" type="submit">Send Enquiry</button>
-        <button type="reset" class="btn ghost">Clear</button>
-      </div>
-      <div id="formMsg" class="small" style="margin-top:10px;color:var(--muted)"></div>
-    </form>
-  </section>
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+    const db = getFirestore(app);
 
-  <footer class="small">
-    © Indo Oxford Academy • Where Curiosity Meets Care • Estd. 2012
-  </footer>
-</main>
+    // ui refs
+    const guestEl = document.getElementById('ioa-guest');
+    const userWrap = document.getElementById('ioa-user');
+    const helloEl = document.getElementById('ioa-hello');
+    const logoutBtn = document.getElementById('ioa-logout');
+    const adminLink = document.getElementById('ioa-admin');
+    const noticeList = document.getElementById('ioa-notice-list');
 
-<!-- Lightbox -->
-<div class="lightbox" id="lightbox" role="dialog" aria-hidden="true" onclick="hideLightbox()">
-  <img src="" alt="preview">
-</div>
-
-<script>
-  // reveal on scroll
-  const reveals = document.querySelectorAll('.reveal');
-  const io = new IntersectionObserver((entries)=>{
-    entries.forEach(e=>{
-      if(e.isIntersecting){ e.target.classList.add('show') }
-    });
-  }, {threshold: .12});
-  reveals.forEach(r=>io.observe(r));
-
-  // gallery lightbox
-  const lb = document.getElementById('lightbox');
-  const lbImg = lb.querySelector('img');
-  document.querySelectorAll('#galleryGrid img').forEach(img=>{
-    img.addEventListener('click', ()=>{
-      lbImg.src = img.src;
-      lb.classList.add('show');
-      lb.setAttribute('aria-hidden','false');
-    });
-  });
-  function hideLightbox(){
-    lb.classList.remove('show');
-    lb.setAttribute('aria-hidden','true');
-    lbImg.src = '';
-  }
-
-  // smooth nav scroll
-  document.querySelectorAll('nav a').forEach(a=>{
-    a.addEventListener('click', e=>{
-      e.preventDefault();
-      const id = a.getAttribute('href');
-      document.querySelector(id).scrollIntoView({behavior:'smooth',block:'start'});
-    });
-  });
-
-  // form submission UX
-  const form = document.getElementById('contactForm');
-  const msg = document.getElementById('formMsg');
-  form.addEventListener('submit', async (e)=>{
-    e.preventDefault();
-    msg.textContent = 'Sending…';
-    const data = new FormData(form);
-    try{
-      const res = await fetch(form.action, {method:'POST', body: data, headers:{'Accept':'application/json'}});
-      if(res.ok){
-        msg.textContent = 'Thanks — we received your message.';
-        form.reset();
-      } else {
-        msg.textContent = 'There was an issue. Try again or contact admin.';
-      }
-    }catch(err){
-      msg.textContent = 'Network error — please try later.';
+    function showGuest(){ guestEl.style.display='block'; userWrap.style.display='none'; adminLink.style.display='none'; }
+    function showUser(name, role){
+      guestEl.style.display='none';
+      userWrap.style.display='flex';
+      helloEl.textContent = `Hi, ${ (name||'User').split(' ')[0] }`;
+      if(role === 'teacher') adminLink.style.display='inline-block'; else adminLink.style.display='none';
     }
-  });
-</script>
+
+    // load latest notices
+    async function loadNotices(){
+      noticeList.textContent = 'Loading notices…';
+      try{
+        const q = query(collection(db,'notices'), orderBy('createdAt','desc'), limit(8));
+        const snap = await getDocs(q);
+        if(snap.empty){ noticeList.innerHTML = '<div class="muted">No notices yet.</div>'; return; }
+        noticeList.innerHTML = snap.docs.map(d=>{
+          const dt = d.data();
+          const title = dt.title || 'Untitled';
+          const body = (dt.body || '').slice(0, 300);
+          const author = dt.authorName || dt.author || '';
+          return `<div class="notice-item"><strong style="color:var(--brand)">${title}</strong><div style="color:#334155;margin-top:6px">${body}</div><div style="font-size:12px;color:#7b8794;margin-top:6px">${author}</div></div>`;
+        }).join('');
+      }catch(err){
+        console.error(err);
+        noticeList.textContent = 'Unable to load notices.';
+      }
+    }
+
+    // auth listener
+    onAuthStateChanged(auth, async (user)=>{
+      if(!user){ showGuest(); loadNotices(); return; }
+      try{
+        const udoc = await getDoc(doc(db,'users',user.uid));
+        const data = udoc.exists() ? udoc.data() : {};
+        const name = data.name || user.displayName || user.email?.split('@')[0];
+        const role = data.role || 'student';
+        showUser(name, role);
+      }catch(e){
+        console.error(e);
+        showUser(user.displayName || user.email?.split('@')[0], 'student');
+      } finally {
+        loadNotices();
+      }
+    });
+
+    // logout handler
+    logoutBtn.addEventListener('click', async ()=>{
+      try{ await signOut(auth); } catch(e){ console.error(e); }
+      // small delay for UI update
+      setTimeout(()=>{ showGuest(); loadNotices(); }, 300);
+    });
+
+    // initial
+    loadNotices();
+  </script>
 </body>
 </html>
