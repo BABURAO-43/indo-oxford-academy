@@ -5,119 +5,146 @@
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Indo Oxford Academy</title>
   <meta name="description" content="Indo Oxford Academy — Where curiosity meets care" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
   <style>
-    /* Simple clean styles (self-contained) */
     :root{
-      --brand:#0b4f8a; --muted:#6b7280; --card:#ffffff;
-      --bg:#f1f6fa; --radius:12px;
+      --brand:#0b4f8a; --soft:#f3f7fb; --muted:#6b7280; --card:#ffffff; --accent:#ffb703;
+      --radius:12px;
     }
-    html,body{height:100%;margin:0;font-family:Inter,system-ui,Segoe UI,Arial;color:#0f1724;background:var(--bg);}
-    a{color:var(--brand);text-decoration:none}
-    header{background:linear-gradient(180deg,#083b6a 0,#0b4f8a 100%);color:#fff;padding:22px 18px;border-bottom-left-radius:18px;border-bottom-right-radius:18px;box-shadow:0 4px 20px rgba(11,79,138,0.08)}
-    .wrap{max-width:1100px;margin:0 auto}
-    .nav{display:flex;align-items:center;gap:18px;justify-content:space-between}
+    *{box-sizing:border-box}
+    html,body{height:100%;margin:0;font-family:Inter,system-ui,Arial;color:#0b2130;background:var(--soft);-webkit-font-smoothing:antialiased}
+    a{text-decoration:none;color:inherit}
+    .container{max-width:1100px;margin:0 auto;padding:18px}
+
+    /* Header */
+    header{background:linear-gradient(180deg,var(--brand),#0a5599);color:#fff;padding:18px;border-bottom-left-radius:18px;border-bottom-right-radius:18px}
+    .hwrap{display:flex;align-items:center;justify-content:space-between;gap:12px}
     .brand{display:flex;align-items:center;gap:12px}
-    .brand h1{margin:0;font-size:20px;letter-spacing:0.2px}
-    .nav-links{display:flex;gap:18px;align-items:center}
-    .hero{background:var(--card);margin:18px auto;padding:22px;border-radius:14px;box-shadow:0 8px 30px rgba(12,26,40,0.04)}
-    .hero h2{margin:0 0 8px;font-size:26px;color:#062244}
-    .buttons{display:flex;gap:12px;margin-top:14px}
-    .btn{padding:10px 16px;border-radius:10px;border:0;background:var(--brand);color:#fff;cursor:pointer}
-    .btn-outline{background:transparent;border:2px solid rgba(11,79,138,0.12);color:var(--brand)}
+    .brand img{height:48px;border-radius:8px;background:#fff;padding:4px}
+    .brand h1{margin:0;font-size:18px;letter-spacing:0.2px}
+    nav a{color:#fff;margin-left:16px;font-weight:600}
+    .nav-right{display:flex;align-items:center;gap:10px}
+
+    /* Hero */
+    .hero{background:var(--card);padding:22px;border-radius:14px;margin-top:16px;box-shadow:0 10px 30px rgba(11,23,40,0.06)}
+    .hero h2{margin:0 0 8px;color:#083449;font-size:24px}
+    .hero p{margin:0;color:var(--muted)}
+
+    /* Grid */
+    .grid{display:grid;grid-template-columns:1fr;gap:16px;margin-top:16px}
+    @media(min-width:880px){ .grid{grid-template-columns: 2fr 1fr} }
+
+    .card{background:var(--card);padding:16px;border-radius:12px;box-shadow:0 6px 20px rgba(10,20,30,0.04)}
+    .card h3{margin:0 0 8px;color:var(--brand)}
+
     /* Notices */
-    #ioa-notices{max-width:980px;margin:18px auto;padding:0 18px}
-    .card{background:var(--card);padding:16px;border-radius:12px;box-shadow:0 6px 20px rgba(8,20,40,0.04)}
-    .notice-item{padding:12px 0;border-bottom:1px solid #eef2f6}
+    .notice-item{padding:10px 0;border-bottom:1px solid #eef4f8}
+    .notice-item:last-child{border-bottom:0}
     .muted{color:var(--muted)}
-    /* Top-right widget */
-    #ioa-user-widget{position:fixed;right:18px;top:12px;z-index:999;font-family:Inter,system-ui;}
-    #ioa-user{display:none;align-items:center;gap:8px}
-    #ioa-hello{background:#fff;padding:8px 10px;border-radius:8px;border:1px solid rgba(11,79,138,0.06);font-weight:600;color:var(--brand)}
-    #ioa-logout{margin-left:8px;padding:8px 10px;border-radius:8px;border:0;background:var(--brand);color:#fff;cursor:pointer}
-    /* mobile adjustments */
-    @media(min-width:880px){ .nav-links{gap:26px} }
-    footer{max-width:980px;margin:26px auto;padding:16px;color:var(--muted);font-size:14px}
+
+    /* Footer */
+    footer{margin-top:20px;color:var(--muted);font-size:14px;padding:30px 0;text-align:center}
+
+    /* Top-right user widget */
+    #user-widget{position:fixed;right:16px;top:14px;z-index:600}
+    .btn{display:inline-block;padding:9px 14px;border-radius:10px;border:0;background:var(--brand);color:#fff;font-weight:600;cursor:pointer}
+    .btn-ghost{background:transparent;border:2px solid rgba(255,255,255,0.15);color:#fff}
+    .small{padding:6px 10px;border-radius:8px;font-size:14px}
+
+    /* utilities */
+    .links a{display:block;padding:6px 0;color:var(--brand)}
   </style>
 </head>
 <body>
-  <!-- top user widget (auto-updated by JS) -->
-  <div id="ioa-user-widget">
-    <div id="ioa-guest">
-      <a href="./auth-ui.html" style="text-decoration:none;color:#fff;background:transparent;padding:8px 10px;border-radius:8px;border:1px solid rgba(255,255,255,0.14)">Login / Sign up</a>
+  <!-- Top user (login) widget -->
+  <div id="user-widget">
+    <div id="guest" style="display:block">
+      <a href="./auth-ui.html" class="btn small">Login / Sign up</a>
     </div>
-    <div id="ioa-user">
-      <span id="ioa-hello"></span>
-      <button id="ioa-logout">Logout</button>
-      <a id="ioa-admin" href="./admin.html" style="display:none;margin-left:8px;padding:8px 10px;border-radius:8px;border:1px solid #fff;color:#fff;text-decoration:none;background:transparent">Admin</a>
+    <div id="user" style="display:none;align-items:center;gap:8px">
+      <span id="user-greet" style="background:#fff;padding:8px 10px;border-radius:8px;color:var(--brand);font-weight:600"></span>
+      <button id="logout" class="btn small" style="background:var(--brand)">Logout</button>
+      <a id="admin-link" href="./admin.html" style="display:none;margin-left:8px;background:#fff;padding:8px 10px;border-radius:8px;color:var(--brand);font-weight:600">Admin</a>
     </div>
   </div>
 
   <header>
-    <div class="wrap nav">
+    <div class="container hwrap">
       <div class="brand">
-        <img src="logo-dark.png" alt="IOA" style="height:44px;border-radius:8px;background:#fff;padding:4px">
+        <img src="assets/logo-light.png" alt="Indo Oxford Academy logo">
         <div>
           <h1>Indo Oxford Academy</h1>
-          <div style="font-size:12px;color:rgba(255,255,255,0.85);margin-top:4px">Where curiosity meets care — Estd. 2012</div>
+          <div style="font-size:12px;opacity:0.95">Where curiosity meets care — Estd. 2012</div>
         </div>
       </div>
-
-      <nav class="nav-links" aria-label="Main">
-        <a href="#home" style="color:#fff;font-weight:600">Home</a>
-        <a href="#about" style="color:#fff">About</a>
-        <a href="#courses" style="color:#fff">Courses</a>
-        <a href="#faculty" style="color:#fff">Faculty</a>
-        <a href="./auth-ui.html" style="color:#fff">Portal</a>
-        <a href="#contact" style="color:#fff">Contact</a>
-      </nav>
+      <div class="nav-right">
+        <nav>
+          <a href="#home">Home</a><a href="#about">About</a><a href="#courses">Courses</a><a href="#faculty">Faculty</a><a href="./auth-ui.html">Portal</a><a href="#contact">Contact</a>
+        </nav>
+      </div>
     </div>
   </header>
 
-  <main class="wrap" id="home">
-    <section class="hero" role="region" aria-label="Hero">
+  <main class="container" id="home">
+    <section class="hero card">
       <h2>Indo Oxford Academy</h2>
-      <p class="muted">A nurturing space for students from Nursery to Class 10 — strong academics, values, and creativity. Blended learning, personalised attention, and experienced faculty.</p>
-      <div class="buttons">
-        <a class="btn" href="./auth-ui.html">Student Portal</a>
-        <a class="btn btn-outline" href="#contact">Enroll Now</a>
+      <p>A nurturing school for Nursery to Class 10 — strong academics, values, and creativity. Blended learning with personal attention and experienced teachers.</p>
+      <div style="margin-top:12px">
+        <a href="./auth-ui.html" class="btn">Student Portal</a>
+        <a href="#contact" class="btn" style="background:transparent;border:2px solid var(--brand);color:var(--brand);margin-left:8px">Enroll Now</a>
       </div>
     </section>
 
-    <!-- Notices (auto loaded) -->
-    <section id="ioa-notices">
-      <div class="card">
-        <h3 style="margin:0 0 10px;color:var(--brand)">Notices</h3>
-        <div id="ioa-notice-list" class="muted">Loading notices…</div>
-      </div>
-    </section>
+    <div class="grid">
+      <!-- left: content -->
+      <div>
+        <div class="card" style="margin-top:12px">
+          <h3>Notices</h3>
+          <div id="notice-list" class="muted">Loading notices…</div>
+        </div>
 
-    <!-- Sample: timetable or other content -->
-    <section style="max-width:980px;margin:18px auto;padding:0 18px">
-      <div class="card" style="margin-top:18px">
-        <h3 style="margin:0 0 8px;color:var(--brand)">Student & Teacher Portal</h3>
-        <p class="muted">Use the Portal link to sign in. After signing in, your name will appear at the top-right — no new page needed.</p>
-        <div style="margin-top:12px">
-          <strong>Quick Links</strong>
-          <ul style="margin-top:8px;color:var(--muted)">
-            <li><a href="#timetable">Class Timetables</a></li>
-            <li><a href="#syllabus">Syllabus & Worksheets</a></li>
-            <li><a href="#notices">Notices</a></li>
-          </ul>
+        <div class="card" style="margin-top:12px">
+          <h3 id="timetable">Sample Class Timetable — Class 6 (Mon–Fri)</h3>
+          <table style="width:100%;border-collapse:collapse;margin-top:12px">
+            <thead><tr><th style="text-align:left;padding:8px">Time</th><th style="text-align:left;padding:8px">Mon</th><th style="text-align:left;padding:8px">Tue</th><th style="text-align:left;padding:8px">Wed</th><th style="text-align:left;padding:8px">Thu</th><th style="text-align:left;padding:8px">Fri</th></tr></thead>
+            <tbody>
+              <tr><td style="padding:8px">9:00 - 9:40</td><td style="padding:8px">Math</td><td style="padding:8px">Science</td><td style="padding:8px">English</td><td style="padding:8px">Computer</td><td style="padding:8px">EVS</td></tr>
+              <tr><td style="padding:8px">9:45 - 10:25</td><td style="padding:8px">Science</td><td style="padding:8px">Math</td><td style="padding:8px">Social</td><td style="padding:8px">Math</td><td style="padding:8px">Drawing</td></tr>
+            </tbody>
+          </table>
         </div>
       </div>
-    </section>
 
-    <!-- Footer sample -->
+      <!-- right: sidebar -->
+      <aside>
+        <div class="card" style="margin-top:12px">
+          <h3>Student & Teacher Portal</h3>
+          <p class="muted">Sign in via Portal. After sign-in, your name will appear here and resources will be available.</p>
+          <div style="margin-top:10px">
+            <strong>Resources</strong>
+            <div class="links" style="margin-top:8px">
+              <a href="#timetable">Class Timetables</a>
+              <a href="#syllabus">Syllabus & Worksheets</a>
+              <a href="#notices">Notices</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="card" style="margin-top:12px">
+          <h3>Contact</h3>
+          <p class="muted">Indo Oxford Academy — Address: (Lohardaga), (835302), Jharkhand.<br>Phone: +91-9341192018</p>
+        </div>
+      </aside>
+    </div>
+
     <footer>
-      Indo Oxford Academy — Address: (Lohardaga), (835302), (Jharkhand). Phone: +91-9341192018
+      © Indo Oxford Academy — All rights reserved.
     </footer>
   </main>
 
-  <!-- ======= Firebase + app logic (no build tools required) =======
-       Replace below with your own config if you ever create a new project.
-  -->
+  <!-- ===== Firebase + safe notice loader ===== -->
   <script type="module">
-    // ---- Firebase config (your project's config) ----
+    // Your Firebase config (keep or replace with yours)
     const firebaseConfig = {
       apiKey: "AIzaSyAIHBis4Sye1PdkbX1ENZa02_6YtJG874Y",
       authDomain: "indooxfordacademy-94000.firebaseapp.com",
@@ -127,9 +154,7 @@
       appId: "1:88109643719:web:0bf5bb98c213ea06e0cbe2",
       measurementId: "G-C95MDD3MGN"
     };
-    // -------------------------------------------------
 
-    // import modular SDK (CDN)
     import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-app.js";
     import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-auth.js";
     import { getFirestore, collection, query, orderBy, getDocs, limit, doc, getDoc } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore.js";
@@ -138,64 +163,78 @@
     const auth = getAuth(app);
     const db = getFirestore(app);
 
-    // ui refs
-    const guestEl = document.getElementById('ioa-guest');
-    const userWrap = document.getElementById('ioa-user');
-    const helloEl = document.getElementById('ioa-hello');
-    const logoutBtn = document.getElementById('ioa-logout');
-    const adminLink = document.getElementById('ioa-admin');
-    const noticeList = document.getElementById('ioa-notice-list');
+    // UI refs
+    const guest = document.getElementById('guest');
+    const user = document.getElementById('user');
+    const userGreet = document.getElementById('user-greet');
+    const logoutBtn = document.getElementById('logout');
+    const adminLink = document.getElementById('admin-link');
+    const noticeList = document.getElementById('notice-list');
 
-    function showGuest(){ guestEl.style.display='block'; userWrap.style.display='none'; adminLink.style.display='none'; }
+    function showGuest(){ guest.style.display='block'; user.style.display='none'; adminLink.style.display='none'; }
     function showUser(name, role){
-      guestEl.style.display='none';
-      userWrap.style.display='flex';
-      helloEl.textContent = `Hi, ${ (name||'User').split(' ')[0] }`;
+      guest.style.display='none';
+      user.style.display='flex';
+      user.style.alignItems='center';
+      userGreet.textContent = `Hi, ${ (name||'User').split(' ')[0] }`;
       if(role === 'teacher') adminLink.style.display='inline-block'; else adminLink.style.display='none';
     }
 
-    // load latest notices
+    // basic sanitizer to avoid HTML injection and hide big dumps
+    function escapeHTML(s){
+      if(!s) return '';
+      return String(s).replaceAll('&','&amp;').replaceAll('<','&lt;').replaceAll('>','&gt;').replaceAll('"','&quot;').replaceAll("'",'&#39;');
+    }
+    function shouldHide(doc){
+      const txt = (doc.title||'') + ' ' + (doc.body||'');
+      const l = txt.toLowerCase();
+      if(l.includes('apikey') || l.includes('firebaseconfig') || l.includes('authdomain') || l.includes('messagingsenderid')) return true;
+      if((doc.body||'').length > 2000) return true;
+      return false;
+    }
+
     async function loadNotices(){
       noticeList.textContent = 'Loading notices…';
       try{
-        const q = query(collection(db,'notices'), orderBy('createdAt','desc'), limit(8));
+        const q = query(collection(db,'notices'), orderBy('createdAt','desc'), limit(6));
         const snap = await getDocs(q);
         if(snap.empty){ noticeList.innerHTML = '<div class="muted">No notices yet.</div>'; return; }
-        noticeList.innerHTML = snap.docs.map(d=>{
-          const dt = d.data();
-          const title = dt.title || 'Untitled';
-          const body = (dt.body || '').slice(0, 300);
-          const author = dt.authorName || dt.author || '';
-          return `<div class="notice-item"><strong style="color:var(--brand)">${title}</strong><div style="color:#334155;margin-top:6px">${body}</div><div style="font-size:12px;color:#7b8794;margin-top:6px">${author}</div></div>`;
-        }).join('');
-      }catch(err){
-        console.error(err);
+        const items = [];
+        snap.forEach(d=>{
+          const data = d.data();
+          if(shouldHide(data)) return; // skip suspicious
+          const title = escapeHTML(data.title || 'Notice');
+          const body = escapeHTML((data.body || '').slice(0,400));
+          const author = escapeHTML(data.authorName || data.author || '');
+          const t = `<div class="notice-item"><strong style="color:var(--brand)">${title}</strong><div style="margin-top:6px;color:#30475a">${body}</div>${author ? `<div style="font-size:12px;color:var(--muted);margin-top:6px">${author}</div>` : ''}</div>`;
+          items.push(t);
+        });
+        if(items.length === 0) noticeList.innerHTML = '<div class="muted">No public notices (hidden for safety).</div>'; else noticeList.innerHTML = items.join('');
+      }catch(e){
+        console.error(e);
         noticeList.textContent = 'Unable to load notices.';
       }
     }
 
-    // auth listener
-    onAuthStateChanged(auth, async (user)=>{
-      if(!user){ showGuest(); loadNotices(); return; }
+    // auth listener — shows user name and role if present in users collection
+    onAuthStateChanged(auth, async (u)=>{
+      if(!u){ showGuest(); loadNotices(); return; }
       try{
-        const udoc = await getDoc(doc(db,'users',user.uid));
-        const data = udoc.exists() ? udoc.data() : {};
-        const name = data.name || user.displayName || user.email?.split('@')[0];
+        const ud = await getDoc(doc(db,'users',u.uid));
+        const data = ud.exists() ? ud.data() : {};
+        const name = data.name || u.displayName || u.email?.split('@')[0];
         const role = data.role || 'student';
         showUser(name, role);
-      }catch(e){
-        console.error(e);
-        showUser(user.displayName || user.email?.split('@')[0], 'student');
+      }catch(err){
+        console.error(err);
+        showUser(u.displayName || u.email?.split('@')[0], 'student');
       } finally {
         loadNotices();
       }
     });
 
-    // logout handler
     logoutBtn.addEventListener('click', async ()=>{
-      try{ await signOut(auth); } catch(e){ console.error(e); }
-      // small delay for UI update
-      setTimeout(()=>{ showGuest(); loadNotices(); }, 300);
+      try{ await signOut(auth); showGuest(); loadNotices(); }catch(e){console.error(e)}
     });
 
     // initial
