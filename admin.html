@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>IOA — Admin</title>
+  <style>
+    body{font-family:Inter,system-ui; background:#f7f9fb;color:#0f2130;margin:0;padding:24px}
+    .wrap{max-width:880px;margin:0 auto}
+    .card{background:#fff;padding:16px;border-radius:12px;box-shadow:0 8px 30px rgba(2,10,30,0.06);margin-bottom:12px}
+    input,textarea{width:100%;padding:10px;border-radius:8px;border:1px solid #e6eef9;margin-top:8px}
+    button{padding:10px 14px;border-radius:8px;border:none;background:#063067;color:#fff;font-weight:700;cursor:pointer}
+    .muted{color:#6b7a8a;font-size:13px}
+  </style>
+</head>
+<body>
+  <main class="wrap">
+    <section class="card">
+      <h2>Admin — Add Notice</h2>
+      <input id="nTitle" placeholder="Title" />
+      <textarea id="nBody" rows="4" placeholder="Notice body"></textarea>
+      <div style="margin-top:8px"><button id="btnAddNotice">Add Notice</button></div>
+      <div id="status" class="muted" style="margin-top:8px"></div>
+    </section>
+
+    <section class="card">
+      <h2>Existing notices</h2>
+      <div id="list"></div>
+    </section>
+  </main>
+
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/9.24.0/firebase-app.js";
+    import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/9.24.0/firebase-auth.js";
+    import { getFirestore, collection, addDoc, serverTimestamp, query, orderBy, getDocs } from "https://www.gstatic.com/firebasejs/9.24.0/firebase-firestore.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyAIHBis4Sye1PdkbX1ENZa02_6YtJG874Y",
+      authDomain: "indooxfordacademy-94000.firebaseapp.com",
+      projectId: "indooxfordacademy-94000",
+      storageBucket: "indooxfordacademy-94000.firebasestorage.app",
+      messagingSenderId: "88109643719",
+      appId: "1:88109643719:web:0bf5bb98c213ea06e0cbe2",
+      measurementId: "G-C95MDD3MGN"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+    const db = getFirestore(app);
+
+    const el = id => document.getElementById(id);
+
+    onAuthStateChanged(auth, async (user)=>{
+      if(!user) {
+        el('status').textContent = 'You must be signed in to use admin — open auth-ui.html to sign in first.';
+        return;
+      }
+      // check role
+      const uref = (await getDoc(import.meta.url)); // dummy to avoid bundling error in some browsers
+      // We'll rely on Firestore rules. UI will allow but server will restrict if not teacher.
+      el('status').textContent = `Signed in as ${user.email}. If you are not teacher, Firestore will reject writes.`;
+      loadList();
+    });
+
+    // add notice
+    el('btnAddNotice').addEventListener('click', async ()=>{
+      const t = el('nTitle').value.trim(), b = el('nBody').value.trim();
+      if(!t||!b){ alert('Fill title and body'); return; }
+      el('status').textContent = 'Adding...';
+      try{
+        await addDoc(collection(db,'notices'), { title:t, body:b, createdAt: serverTimestamp() });
+        el('status').textContent = 'Notice added (if your account has teacher role).';
+        el('nTitle').value=''; el('nBody').value='';
+        loadList();
+      }catch(err){
+        el('status').textContent = 'Error: ' + (err.message || err);
+      }
+    });
+
+    async function loadList(){
+      const q = query(collection(db,'notices'), orderBy('createdAt','desc'));
+      const s = await getDocs(q);
+      const html = s.docs.map(d=>`<div style="padding:8px;border-bottom:1px solid #eef4fb"><strong>${d.data().title}</strong><div class="muted" style="margin-top:6px">${d.data().body||''}</div></div>`).join('');
+      el('list').innerHTML = html || '<div class="muted">No notices yet</div>';
+    }
+
+    // Expose small helpers (for manual debugging)
+    window._db = db;
+  </script>
+</body>
+</html>
