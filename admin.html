@@ -5,87 +5,118 @@
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>IOA — Admin</title>
   <style>
-    body{font-family:Inter,system-ui; background:#f7f9fb;color:#0f2130;margin:0;padding:24px}
-    .wrap{max-width:880px;margin:0 auto}
-    .card{background:#fff;padding:16px;border-radius:12px;box-shadow:0 8px 30px rgba(2,10,30,0.06);margin-bottom:12px}
-    input,textarea{width:100%;padding:10px;border-radius:8px;border:1px solid #e6eef9;margin-top:8px}
-    button{padding:10px 14px;border-radius:8px;border:none;background:#063067;color:#fff;font-weight:700;cursor:pointer}
-    .muted{color:#6b7a8a;font-size:13px}
+    body{font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial;margin:0;background:#f3f6fb;color:#102a43}
+    .wrap{max-width:900px;margin:30px auto;padding:18px}
+    .card{background:#fff;padding:18px;border-radius:10px;box-shadow:0 6px 18px rgba(8,20,40,0.06)}
+    label{display:block;margin:10px 0 6px;font-weight:600}
+    input,textarea{width:100%;padding:10px;border-radius:6px;border:1px solid #e6eef6}
+    button{background:#0b4f8a;color:#fff;border:0;padding:10px 14px;border-radius:8px;cursor:pointer}
+    .muted{color:#6b7280}
+    #status{margin-top:10px;font-weight:600;color:#0b4f8a}
   </style>
 </head>
 <body>
-  <main class="wrap">
-    <section class="card">
+  <div class="wrap">
+    <div class="card">
       <h2>Admin — Add Notice</h2>
-      <input id="nTitle" placeholder="Title" />
-      <textarea id="nBody" rows="4" placeholder="Notice body"></textarea>
-      <div style="margin-top:8px"><button id="btnAddNotice">Add Notice</button></div>
-      <div id="status" class="muted" style="margin-top:8px"></div>
-    </section>
-
-    <section class="card">
-      <h2>Existing notices</h2>
+      <div class="muted">Only teachers can post notices. Make sure you're signed in.</div>
+      <label>Title</label>
+      <input id="title" placeholder="Notice title" />
+      <label>Body</label>
+      <textarea id="body" rows="6" placeholder="Write the notice..."></textarea>
+      <div style="margin-top:12px">
+        <button id="btnAdd">Add Notice</button>
+        <button id="btnLogout" style="margin-left:10px;background:#dd3333">Logout</button>
+      </div>
+      <div id="status" class="muted"></div>
+      <hr style="margin:18px 0" />
+      <h3>Recent Notices (live)</h3>
       <div id="list"></div>
-    </section>
-  </main>
+    </div>
+  </div>
 
   <script type="module">
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/9.24.0/firebase-app.js";
-    import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/9.24.0/firebase-auth.js";
-    import { getFirestore, collection, addDoc, serverTimestamp, query, orderBy, getDocs } from "https://www.gstatic.com/firebasejs/9.24.0/firebase-firestore.js";
-
+    // ---- REPLACE this firebaseConfig with same one you used in auth-ui.html ----
     const firebaseConfig = {
-      apiKey: "AIzaSyAIHBis4Sye1PdkbX1ENZa02_6YtJG874Y",
-      authDomain: "indooxfordacademy-94000.firebaseapp.com",
-      projectId: "indooxfordacademy-94000",
-      storageBucket: "indooxfordacademy-94000.firebasestorage.app",
-      messagingSenderId: "88109643719",
-      appId: "1:88109643719:web:0bf5bb98c213ea06e0cbe2",
-      measurementId: "G-C95MDD3MGN"
+      apiKey: "REPLACE_WITH_YOURS",
+      authDomain: "REPLACE_WITH_YOURS.firebaseapp.com",
+      projectId: "REPLACE_WITH_YOURS",
+      storageBucket: "REPLACE_WITH_YOURS.appspot.com",
+      messagingSenderId: "REPLACE_WITH_YOURS",
+      appId: "REPLACE_WITH_YOURS",
+      measurementId: "REPLACE_WITH_YOURS"
     };
+    // -------------------------------------------------------------------------
+
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-app.js";
+    import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-auth.js";
+    import { getFirestore, collection, addDoc, query, orderBy, limit, getDocs, serverTimestamp, doc, getDoc } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore.js";
 
     const app = initializeApp(firebaseConfig);
     const auth = getAuth(app);
     const db = getFirestore(app);
 
-    const el = id => document.getElementById(id);
+    const statusEl = document.getElementById('status');
+    const listEl = document.getElementById('list');
 
-    onAuthStateChanged(auth, async (user)=>{
-      if(!user) {
-        el('status').textContent = 'You must be signed in to use admin — open auth-ui.html to sign in first.';
-        return;
-      }
-      // check role
-      const uref = (await getDoc(import.meta.url)); // dummy to avoid bundling error in some browsers
-      // We'll rely on Firestore rules. UI will allow but server will restrict if not teacher.
-      el('status').textContent = `Signed in as ${user.email}. If you are not teacher, Firestore will reject writes.`;
-      loadList();
-    });
+    function setStatus(t){ statusEl.textContent = t; }
 
-    // add notice
-    el('btnAddNotice').addEventListener('click', async ()=>{
-      const t = el('nTitle').value.trim(), b = el('nBody').value.trim();
-      if(!t||!b){ alert('Fill title and body'); return; }
-      el('status').textContent = 'Adding...';
+    async function loadNotices(){
+      listEl.innerHTML = 'Loading...';
       try{
-        await addDoc(collection(db,'notices'), { title:t, body:b, createdAt: serverTimestamp() });
-        el('status').textContent = 'Notice added (if your account has teacher role).';
-        el('nTitle').value=''; el('nBody').value='';
-        loadList();
-      }catch(err){
-        el('status').textContent = 'Error: ' + (err.message || err);
-      }
-    });
-
-    async function loadList(){
-      const q = query(collection(db,'notices'), orderBy('createdAt','desc'));
-      const s = await getDocs(q);
-      const html = s.docs.map(d=>`<div style="padding:8px;border-bottom:1px solid #eef4fb"><strong>${d.data().title}</strong><div class="muted" style="margin-top:6px">${d.data().body||''}</div></div>`).join('');
-      el('list').innerHTML = html || '<div class="muted">No notices yet</div>';
+        const q = query(collection(db,'notices'), orderBy('createdAt','desc'), limit(10));
+        const snap = await getDocs(q);
+        if(snap.empty) { listEl.innerHTML = '<div class="muted">No notices yet</div>'; return; }
+        listEl.innerHTML = snap.docs.map(d=>{
+          const data = d.data();
+          return `<div style="padding:12px;border-bottom:1px solid #eef2f6"><strong>${data.title||'Untitled'}</strong><div style="color:#5b6b7a">${data.body||''}</div><div style="font-size:12px;color:#8892a6;margin-top:6px">${data.authorName||data.author||'—'}</div></div>`;
+        }).join('');
+      }catch(e){ console.error(e); listEl.innerHTML = 'Error loading notices'; }
     }
 
-    // Expose small helpers (for manual debugging)
-    window._db = db;
+    async function addNotice(uid, authorName){
+      try{
+        const title = document.getElementById('title').value.trim();
+        const body = document.getElementById('body').value.trim();
+        if(!title || !body) return setStatus('Enter title and body');
+        setStatus('Saving...');
+        await addDoc(collection(db,'notices'), { title, body, author: uid, authorName, createdAt: serverTimestamp() });
+        setStatus('Saved');
+        document.getElementById('title').value=''; document.getElementById('body').value='';
+        loadNotices();
+      }catch(e){ console.error(e); setStatus('Error: ' + e.message); }
+    }
+
+    // ensure only teacher can add
+    let currentUser = null;
+    onAuthStateChanged(auth, async (user)=>{
+      if(!user){ setStatus('Not signed in. Go to auth page.'); return; }
+      currentUser = user;
+      const udoc = await getDoc(doc(db,'users', user.uid));
+      const role = udoc.exists() ? udoc.data().role : 'student';
+      setStatus(`Signed in as ${udoc.exists()?udoc.data().name:user.email} — role: ${role}`);
+      if(role !== 'teacher'){
+        document.getElementById('btnAdd').disabled = true;
+        setStatus('You are not a teacher. Only teachers can post.');
+      } else {
+        document.getElementById('btnAdd').disabled = false;
+      }
+      loadNotices();
+    });
+
+    document.getElementById('btnAdd').addEventListener('click', ()=>{
+      if(!currentUser) return setStatus('Sign in first');
+      addNotice(currentUser.uid, document.getElementById('title').value?document.getElementById('fullname')?.value || '' : '');
+    });
+
+    document.getElementById('btnLogout').addEventListener('click', async ()=>{
+      await signOut(auth);
+      setStatus('Signed out');
+      window.location.href = './auth-ui.html';
+    });
+
+    // initial load (in case allowed)
+    loadNotices();
   </script>
 </body>
 </html>
