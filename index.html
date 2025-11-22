@@ -3,468 +3,292 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Indo Oxford Academy — ButterSmooth</title>
-  <meta name="description" content="Indo Oxford Academy — Where curiosity meets care" />
+  <title>Indo Oxford Academy — Where curiosity meets care</title>
+  <meta name="description" content="Indo Oxford Academy — Nursery to Class 10. Enrolments open. Contact principal: 9128116022" />
+  <link rel="icon" href="favicon.ico" />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+
   <style>
     :root{
-      --brand:#0b4f8a; --brand-2:#0a6fb3; --soft:#f4f7fb; --card:#ffffff;
-      --muted:#6b7280; --accent:#ffb703; --radius:12px; --maxw:1100px;
-      --header-height:76px;
-      --ease: cubic-bezier(.22,.9,.29,1);
+      --brand:#0b4f8a; --soft:#f3f7fb; --muted:#6b7280; --card:#ffffff; --accent:#ffb703;
+      --radius:14px;
     }
     *{box-sizing:border-box}
-    html{scroll-behavior:smooth}
-    body{margin:0;font-family:Inter,system-ui,Arial;background:var(--soft);color:#08344a;-webkit-font-smoothing:antialiased;line-height:1.45}
-    a{color:inherit;text-decoration:none}
-
-    .container{max-width:var(--maxw);margin:0 auto;padding:16px}
+    html,body{height:100%;margin:0;font-family:Inter,system-ui,Arial;color:#0b2130;background:var(--soft);-webkit-font-smoothing:antialiased;scroll-behavior:smooth}
+    a{text-decoration:none;color:inherit}
+    .container{max-width:1100px;margin:0 auto;padding:18px}
 
     /* Header */
-    header{position:sticky;top:0;z-index:120;background:linear-gradient(180deg,var(--brand),var(--brand-2));padding:10px 0;border-bottom-left-radius:12px;border-bottom-right-radius:12px;box-shadow:0 8px 30px rgba(2,18,32,0.12)}
-    .nav-inner{max-width:var(--maxw);margin:0 auto;padding:0 16px;display:flex;align-items:center;justify-content:space-between;gap:12px}
-    .brand{display:flex;align-items:center;gap:10px;min-width:0}
-    .logo-box{width:52px;height:52px;border-radius:10px;background:#fff;padding:6px;flex-shrink:0;display:flex;align-items:center;justify-content:center}
-    .logo-box img{width:100%;height:100%;object-fit:contain;display:block}
-    .brand h1{font-size:18px;color:#fff;margin:0}
-    .brand small{color:#eaf6ff;font-size:12px}
-
-    nav.desktop{display:flex;gap:12px;align-items:center}
-    nav.desktop a{color:#eaf6ff;padding:8px 10px;border-radius:8px;font-weight:600;opacity:.95;transition:all .22s var(--ease)}
-    nav.desktop a.active{background:rgba(255,255,255,0.12);box-shadow:inset 0 -3px 0 rgba(255,255,255,0.06)}
-
-    #menu-toggle{display:none;background:transparent;border:0;color:#fff;font-size:26px}
-
-    @media(max-width:880px){
-      nav.desktop{display:none}
-      #menu-toggle{display:inline-flex}
-    }
-
-    /* Mobile nav */
-    #mobile-nav{display:none;background:#fff;padding:14px;border-radius:12px;margin:12px;box-shadow:0 12px 30px rgba(2,18,32,0.08)}
-    #mobile-nav a{display:block;padding:12px 6px;color:var(--brand);border-bottom:1px solid #f1f5f8}
+    header{background:linear-gradient(180deg,var(--brand),#0a5599);color:#fff;padding:12px;border-bottom-left-radius:18px;border-bottom-right-radius:18px;position:sticky;top:0;z-index:1000}
+    .hwrap{display:flex;align-items:center;justify-content:space-between;gap:12px}
+    .brand{display:flex;align-items:center;gap:12px}
+    .brand img{height:48px;border-radius:8px;background:#fff;padding:4px;object-fit:contain}
+    .brand h1{margin:0;font-size:18px;letter-spacing:0.2px}
+    nav { display:flex; gap:12px; align-items:center; }
+    nav a{ color:#fff; margin-left:12px; font-weight:600; cursor:pointer }
+    .menu-btn{display:none}
 
     /* Hero */
-    .hero{background:var(--card);padding:16px;border-radius:12px;margin-top:16px;display:flex;gap:16px;align-items:center;box-shadow:0 10px 30px rgba(10,20,30,0.04)}
-    .hero-left{flex:1;min-width:0}
-    .hero-left h2{font-size:22px;margin:0;color:#08344a}
-    .hero-left p{color:var(--muted);margin-top:6px}
-    .cta{display:flex;gap:8px;margin-top:12px}
-    .btn{background:var(--brand);color:#fff;padding:10px 14px;border-radius:10px;font-weight:700;border:0;cursor:pointer;transition:transform .12s var(--ease)}
-    .btn:active{transform:translateY(1px)}
-    .btn.ghost{background:transparent;border:2px solid #fff;color:#fff}
-
-    .hero-thumb{width:140px;height:96px;border-radius:10px;overflow:hidden;box-shadow:0 8px 20px rgba(2,18,32,0.06);flex-shrink:0;display:flex;align-items:center;justify-content:center;background:#f6fbff}
+    .hero{background:var(--card);padding:18px;border-radius:14px;margin-top:12px;box-shadow:0 10px 30px rgba(11,23,40,0.06);display:flex;gap:14px;align-items:center}
+    .hero-left{flex:1}
+    .hero h2{margin:0 0 8px;color:#083449;font-size:22px}
+    .hero p{margin:0;color:var(--muted)}
+    .hero-cta{margin-top:12px}
+    .btn{display:inline-block;padding:9px 14px;border-radius:10px;border:0;background:var(--brand);color:#fff;font-weight:600;cursor:pointer}
+    .btn-ghost{background:transparent;border:2px solid var(--brand);color:#fff;margin-left:8px}
+    .hero-thumb{width:220px;height:140px;border-radius:10px;overflow:hidden;background:#eef6fb;flex-shrink:0;display:flex;align-items:center;justify-content:center}
     .hero-thumb img{width:100%;height:100%;object-fit:cover}
 
-    /* layout */
-    .grid{display:grid;grid-template-columns:1fr;gap:14px;margin-top:14px}
-    @media(min-width:880px){ .grid{grid-template-columns:2fr 1fr} }
-
-    .card{background:var(--card);padding:14px;border-radius:12px;box-shadow:0 10px 30px rgba(10,20,30,0.04)}
-    h3{margin:0 0 8px;color:var(--brand)}
-
-    /* Notices */
-    .notice-item{padding:12px;border-radius:10px;border:1px solid #eef6fb;margin-bottom:10px;transition:transform .12s var(--ease);cursor:pointer}
-    .notice-item:active{transform:translateY(1px)}
-    .notice-title{color:var(--brand);font-weight:700}
+    /* Grid */
+    .grid{display:grid;grid-template-columns:1fr;gap:16px;margin-top:16px}
+    @media(min-width:880px){ .grid{grid-template-columns: 2fr 1fr} }
+    .card{background:var(--card);padding:16px;border-radius:12px;box-shadow:0 6px 20px rgba(10,20,30,0.04)}
+    .card h3{margin:0 0 8px;color:var(--brand)}
+    .notice-item{padding:10px 0;border-bottom:1px solid #eef4f8}
     .muted{color:var(--muted)}
 
-    /* Video */
-    .video-wrap{border-radius:12px;overflow:hidden}
-    .video-frame{width:100%;height:320px;border:0}
-    @media(max-width:520px){ .video-frame{height:220px} }
+    /* Video card */
+    .video-card .video-wrap{border-radius:10px;overflow:hidden}
+    .video-frame{width:100%;height:220px;border:0;display:block}
+    .video-meta{padding:12px}
 
-    .desc{background:#fbfdff;padding:10px;border-radius:8px;margin-top:8px}
-    .controls{display:flex;gap:8px;margin-top:10px;flex-wrap:wrap}
-    .unmute{background:#fff;border:2px solid var(--brand);color:var(--brand);padding:8px 10px;border-radius:8px;cursor:pointer}
-    .yt-open{background:#ff0000;color:#fff;padding:8px 10px;border-radius:8px;text-decoration:none}
+    /* Footer */
+    footer{margin-top:20px;color:var(--muted);font-size:14px;padding:30px 0;text-align:center}
 
-    /* Contact / map */
-    .map{width:100%;height:220px;border-radius:10px;border:0;margin-top:8px}
+    /* User widget */
+    #user-widget{position:fixed;right:16px;top:14px;z-index:600}
+    .small{padding:6px 10px;border-radius:8px;font-size:14px}
 
-    footer{margin-top:18px;padding:18px 0;text-align:center;color:var(--muted);font-size:13px}
+    /* responsive */
+    @media(max-width:520px){
+      nav{display:none}
+      .menu-btn{display:block;background:transparent;border:2px solid rgba(255,255,255,0.15);color:#fff;padding:8px;border-radius:8px}
+      .hero{flex-direction:column;align-items:flex-start}
+      .hero-thumb{width:100%;height:200px}
+      .video-frame{height:200px}
+      header{padding:12px 10px}
+    }
 
-    /* smooth highlight for scroll-spy */
-    .nav-fade { transition:opacity .25s var(--ease) }
+    /* small helpers */
+    .links a{display:block;padding:6px 0;color:var(--brand)}
+    .muted-2{color:#6b7280;font-size:14px}
+    .pill{display:inline-block;padding:6px 10px;background:#f3f7fb;border-radius:999px;color:var(--brand);font-weight:600}
+    .open-yt{background:#ef2b2b;color:white;padding:8px 12px;border-radius:8px;border:0;font-weight:700}
+    .unmute-btn{background:transparent;border:2px solid var(--brand);padding:8px 10px;border-radius:8px;margin-right:8px}
   </style>
 </head>
 <body>
+  <!-- Top user widget -->
+  <div id="user-widget" aria-hidden>
+    <div id="guest">
+      <a href="./auth-ui.html" class="small" style="background:rgba(255,255,255,0.12);color:#fff;border-radius:8px;padding:8px 10px">Student Portal</a>
+    </div>
+  </div>
+
   <header>
-    <div class="nav-inner">
-      <div class="brand">
-        <div class="logo-box">
-          <img id="site-logo" src="assets/logo.png" alt="Indo Oxford Academy logo"
-               onerror="this.onerror=null; this.src='data:image/svg+xml;utf8,'+encodeURIComponent(svgLogo())">
-        </div>
+    <div class="container hwrap">
+      <div class="brand" style="gap:10px">
+        <!-- NOTE: ensure file name matches repo: logo-light.png or logo.png in root -->
+        <img id="site-logo" src="logo-light.png" alt="Indo Oxford Academy logo" onerror="this.src='logo.png'">
         <div>
           <h1>Indo Oxford Academy</h1>
-          <small>Where curiosity meets care — Estd. 2012</small>
+          <div style="font-size:12px;opacity:0.95">Where curiosity meets care — Estd. 2012</div>
         </div>
       </div>
 
-      <nav class="desktop" aria-label="Main">
-        <a href="#home" data-target="home">Home</a>
-        <a href="#notices" data-target="notices">Notices</a>
-        <a href="#timetable" data-target="timetable">Timetable</a>
-        <a href="#video" data-target="video">Highlights</a>
-        <a href="#contact" data-target="contact">Contact</a>
-      </nav>
-
-      <button id="menu-toggle" aria-expanded="false" aria-label="Open menu">☰</button>
-    </div>
-
-    <div id="mobile-nav" aria-hidden="true" class="nav-fade">
-      <a href="#home" data-target="home">Home</a>
-      <a href="#notices" data-target="notices">Notices</a>
-      <a href="#timetable" data-target="timetable">Timetable</a>
-      <a href="#video" data-target="video">Highlights</a>
-      <a href="#contact" data-target="contact">Contact</a>
+      <div style="display:flex;align-items:center;gap:10px">
+        <nav id="topnav">
+          <a data-target="#home">Home</a>
+          <a data-target="#notices">Notices</a>
+          <a data-target="#timetable">Timetable</a>
+          <a data-target="#highlights">Highlights</a>
+          <a data-target="#contact">Contact</a>
+        </nav>
+        <button class="menu-btn" id="menuToggle" aria-label="menu">☰</button>
+      </div>
     </div>
   </header>
 
   <main class="container" id="home">
-    <section class="hero" id="hero-section">
+    <section class="hero card" aria-labelledby="hero-title">
       <div class="hero-left">
-        <h2>Indo Oxford Academy</h2>
-        <p>A nurturing school for Nursery to Class 10 — strong academics, values, and creativity.</p>
-        <div class="cta">
-          <a class="btn" href="./auth-ui.html">Student Portal</a>
-          <a class="btn ghost" href="#contact">Enroll Now</a>
+        <h2 id="hero-title">Indo Oxford Academy</h2>
+        <p>A nurturing school for Nursery to Class 10 — strong academics, values, and creativity. Blended learning with personal attention and experienced teachers.</p>
+        <div class="hero-cta">
+          <a href="./auth-ui.html" class="btn">Student Portal</a>
+          <a href="#contact" class="btn btn-ghost">Enroll Now</a>
         </div>
       </div>
-      <div class="hero-thumb" aria-hidden="true">
-        <img id="hero-img" src="assets/hero-school.jpg" alt="Students in class"
-             onerror="this.onerror=null; this.replaceWith(heroFallbackSVG())">
+      <div class="hero-thumb" aria-hidden>
+        <!-- fallback image = assets/hero.jpg -->
+        <img src="assets/hero.jpg" alt="School highlights" onerror="this.style.background='linear-gradient(180deg,#e6f2fb,#cfefff)';this.src='';">
       </div>
     </section>
 
     <div class="grid">
+      <!-- left -->
       <div>
         <div class="card" id="notices">
           <h3>Notices</h3>
-          <div id="notice-list" class="muted">Loading…</div>
+          <div id="notice-list" class="muted">Loading notices…</div>
         </div>
 
-        <div class="card" id="timetable">
-          <h3>Sample Class Timetable — Class 6</h3>
-          <table style="width:100%;margin-top:10px;border-collapse:collapse">
-            <thead><tr style="text-align:left"><th>Time</th><th>Mon</th><th>Tue</th><th>Wed</th><th>Thu</th><th>Fri</th></tr></thead>
+        <div class="card" id="timetable" style="margin-top:12px">
+          <h3>Sample Class Timetable — Class 6 (Mon–Fri)</h3>
+          <table style="width:100%;border-collapse:collapse;margin-top:12px">
+            <thead><tr><th style="text-align:left;padding:8px">Time</th><th style="text-align:left;padding:8px">Mon</th><th style="text-align:left;padding:8px">Tue</th><th style="text-align:left;padding:8px">Wed</th><th style="text-align:left;padding:8px">Thu</th><th style="text-align:left;padding:8px">Fri</th></tr></thead>
             <tbody>
-              <tr><td>9:00 - 9:40</td><td>Math</td><td>Science</td><td>English</td><td>Computer</td><td>EVS</td></tr>
-              <tr><td>9:45 - 10:25</td><td>Science</td><td>Math</td><td>Social</td><td>Math</td><td>Drawing</td></tr>
+              <tr><td style="padding:8px">9:00 - 9:40</td><td style="padding:8px">Math</td><td style="padding:8px">Science</td><td style="padding:8px">English</td><td style="padding:8px">Computer</td><td style="padding:8px">EVS</td></tr>
+              <tr><td style="padding:8px">9:45 - 10:25</td><td style="padding:8px">Science</td><td style="padding:8px">Math</td><td style="padding:8px">Social</td><td style="padding:8px">Math</td><td style="padding:8px">Drawing</td></tr>
             </tbody>
           </table>
         </div>
 
-        <div class="card" id="video">
+        <div class="card video-card" id="highlights" style="margin-top:12px">
           <h3>School Highlights</h3>
-          <div class="video-wrap">
+          <div class="video-wrap" style="margin-top:12px">
+            <!-- YouTube embed: ensure autoplay muted; id byPiWJ2Obpc -->
             <iframe id="yt-frame" class="video-frame"
-              src="https://www.youtube.com/embed/byPiWJ2Obpc?rel=0&modestbranding=1&playsinline=1&mute=1"
+              src="https://www.youtube.com/embed/byPiWJ2Obpc?rel=0&modestbranding=1&playsinline=1&mute=1&autoplay=1&enablejsapi=1"
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" loading="lazy" title="IOA Video"></iframe>
           </div>
 
-          <div class="desc" id="video-desc">
-            <strong>Description</strong>
-            <div id="desc-body" style="margin-top:6px;color:#1b3b45">Raw material as a fresh child in Indo Oxford Academy — 337 views · 2 years ago. Watch our little ones exploring and learning with care.</div>
-            <div class="controls">
-              <button id="unmute-btn" class="unmute" aria-pressed="false">Unmute</button>
-              <a id="open-youtube" class="yt-open" href="https://www.youtube.com/watch?v=byPiWJ2Obpc" target="_blank" rel="noopener">Open on YouTube</a>
+          <div class="video-meta">
+            <div style="font-weight:700">Raw material as a fresh child in Indo Oxford Academy</div>
+            <div class="muted-2" style="margin-top:8px">Raw material as a fresh child in Indo Oxford Academy — 337 views · 2 years ago.</div>
+            <div style="margin-top:12px">
+              <button class="unmute-btn" id="unmute">Unmute</button>
+              <a class="open-yt" target="_blank" rel="noopener" href="https://youtu.be/byPiWJ2Obpc">Open on YouTube</a>
             </div>
-            <div style="margin-top:8px;color:var(--muted);font-size:13px">Video autoplays muted when mostly visible. Tap "Unmute" to allow sound.</div>
           </div>
         </div>
 
       </div>
 
+      <!-- right sidebar -->
       <aside>
-        <div class="card contact" id="contact">
+        <div class="card" style="margin-top:12px">
+          <h3>Student & Teacher Portal</h3>
+          <p class="muted">Sign in via Portal. After sign-in, your name will appear here and resources will be available.</p>
+          <div style="margin-top:10px">
+            <strong>Resources</strong>
+            <div class="links" style="margin-top:8px">
+              <a href="#timetable">Class Timetables</a>
+              <a href="#syllabus">Syllabus & Worksheets</a>
+              <a href="#notices">Notices</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="card" style="margin-top:12px" id="contact">
           <h3>Contact</h3>
-          <div style="font-weight:700">Indo Oxford Academy (Lohardaga)</div>
-          <div style="margin-top:6px;color:var(--muted)">Address: Lohardaga, Jharkhand — 835302</div>
-          <div style="margin-top:6px">Principal: <a href="tel:+919128116022">+91-9128116022</a></div>
+          <p class="muted">Indo Oxford Academy — Address: (Lohardaga), (835302), Jharkhand.<br>Phone: +91-9341192018<br>Principal: +91-9128116022</p>
 
-          <iframe class="map" src="https://www.google.com/maps?q=23.409633,84.670359&z=17&output=embed" loading="lazy" title="Map"></iframe>
-
-          <div style="margin-top:8px">
-            <a class="btn" href="https://www.youtube.com/watch?v=byPiWJ2Obpc" target="_blank" rel="noopener">Open video on YouTube</a>
+          <div style="margin-top:12px">
+            <strong>Location</strong>
+            <!-- Google maps with the coordinates you gave -->
+            <div style="margin-top:8px;border-radius:10px;overflow:hidden">
+              <iframe title="Indo Oxford Academy map" width="100%" height="200" loading="lazy"
+                src="https://www.google.com/maps?q=23.409633,84.670359&hl=hi&z=15&output=embed"></iframe>
+            </div>
           </div>
         </div>
       </aside>
     </div>
 
-    <footer>© Indo Oxford Academy — All rights reserved.</footer>
+    <footer>
+      © Indo Oxford Academy — All rights reserved.
+    </footer>
   </main>
 
-  <script>
-    /* ---------- Utilities ---------- */
-    const $ = sel => document.querySelector(sel);
-    const $$ = sel => Array.from(document.querySelectorAll(sel));
+  <!-- Firebase + Notices loader (uses your previous firebaseConfig) -->
+  <script type="module">
+    // Your Firebase config (same as earlier)
+    const firebaseConfig = {
+      apiKey: "AIzaSyAIHBis4Sye1PdkbX1ENZa02_6YtJG874Y",
+      authDomain: "indooxfordacademy-94000.firebaseapp.com",
+      projectId: "indooxfordacademy-94000",
+      storageBucket: "indooxfordacademy-94000.firebasestorage.app",
+      messagingSenderId: "88109643719",
+      appId: "1:88109643719:web:0bf5bb98c213ea06e0cbe2",
+      measurementId: "G-C95MDD3MGN"
+    };
 
-    // dynamic CSS var for header offset
-    function setHeaderVar(){
-      const h = document.querySelector('header');
-      const height = h ? Math.ceil(h.getBoundingClientRect().height) : 76;
-      document.documentElement.style.setProperty('--header-height', height + 'px');
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-app.js";
+    import { getFirestore, collection, query, orderBy, getDocs, limit } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore.js";
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
+
+    const noticeList = document.getElementById('notice-list');
+
+    function escapeHTML(s){
+      if(!s) return '';
+      return String(s).replaceAll('&','&amp;').replaceAll('<','&lt;').replaceAll('>','&gt;').replaceAll('"','&quot;').replaceAll("'",'&#39;');
+    }
+    function shouldHide(doc){
+      const txt = (doc.title||'') + ' ' + (doc.body||'');
+      const l = txt.toLowerCase();
+      if(l.includes('apikey') || l.includes('firebaseconfig') || l.includes('authdomain') || l.includes('messagingsenderid')) return true;
+      if((doc.body||'').length > 2000) return true;
+      return false;
     }
 
-    // smooth scroll to element with exact header offset
-    function smoothScrollTo(el){
-      if(!el) return;
-      const headerH = parseInt(getComputedStyle(document.documentElement).getPropertyValue('--header-height')) || 76;
-      const rect = el.getBoundingClientRect();
-      const scrollTop = window.scrollY || window.pageYOffset;
-      const target = Math.max(0, Math.floor(scrollTop + rect.top - headerH - 12)); // 12px breathing
-      window.scrollTo({ top: target, behavior: 'smooth' });
+    async function loadNotices(){
+      noticeList.textContent = 'Loading notices…';
+      try{
+        const q = query(collection(db,'notices'), orderBy('createdAt','desc'), limit(6));
+        const snap = await getDocs(q);
+        if(snap.empty){ noticeList.innerHTML = '<div class="muted">No notices yet.</div>'; return; }
+        const items = [];
+        snap.forEach(d=>{
+          const data = d.data();
+          if(shouldHide(data)) return;
+          const title = escapeHTML(data.title || 'Notice');
+          const body = escapeHTML((data.body || '').slice(0,400));
+          const author = escapeHTML(data.authorName || data.author || '');
+          const t = `<div class="notice-item"><strong style="color:var(--brand)">${title}</strong><div style="margin-top:6px;color:#30475a">${body}</div>${author ? `<div style="font-size:12px;color:var(--muted);margin-top:6px">${author}</div>` : ''}</div>`;
+          items.push(t);
+        });
+        if(items.length === 0) noticeList.innerHTML = '<div class="muted">No public notices (hidden for safety).</div>'; else noticeList.innerHTML = items.join('');
+      }catch(e){
+        console.error(e);
+        noticeList.textContent = 'Unable to load notices.';
+      }
     }
 
-    /* ---------- Nav behavior: toggle, close on click, scroll-spy ---------- */
-    const menuToggle = $('#menu-toggle');
-    const mobileNav = $('#mobile-nav');
-    menuToggle?.addEventListener('click', ()=>{
-      const open = mobileNav.style.display !== 'block';
-      mobileNav.style.display = open ? 'block' : 'none';
-      mobileNav.setAttribute('aria-hidden', String(!open));
-      menuToggle.setAttribute('aria-expanded', String(open));
+    loadNotices();
+
+    // Nav smooth + mobile toggle
+    document.querySelectorAll('[data-target]').forEach(el=>{
+      el.addEventListener('click', (e)=>{
+        const sel = el.getAttribute('data-target');
+        const target = document.querySelector(sel);
+        if(target) target.scrollIntoView({behavior:'smooth',block:'start'});
+        // close mobile nav if open
+        if(window.innerWidth<=520) document.getElementById('topnav').style.display='none';
+      });
+    });
+    document.getElementById('menuToggle').addEventListener('click', ()=>{
+      const nav=document.getElementById('topnav');
+      nav.style.display = nav.style.display === 'flex' ? 'none' : 'flex';
+      nav.style.flexDirection = 'column';
+      nav.style.background='linear-gradient(180deg,#0b4f8a,#0a5599)';
+      nav.style.padding='10px';
+      nav.style.borderRadius='10px';
     });
 
-    // bind internal anchors in both desktop and mobile
-    function bindAnchors(){
-      const anchors = $$('a[href^="#"]');
-      anchors.forEach(a=>{
-        a.addEventListener('click', (e)=>{
-          const href = a.getAttribute('href');
-          if(!href || href === '#') return;
-          const id = href.slice(1);
-          const target = document.getElementById(id);
-          if(target){
-            e.preventDefault();
-            smoothScrollTo(target);
-            // close mobile nav if open
-            if(mobileNav && mobileNav.style.display === 'block'){
-              mobileNav.style.display = 'none';
-              mobileNav.setAttribute('aria-hidden','true');
-              menuToggle?.setAttribute('aria-expanded','false');
-            }
-          }
-        }, {passive:true});
-      });
-    }
-
-    // Scroll-spy: highlight nav link nearest to top
-    function initScrollSpy(){
-      const sections = $$('main [id]');
-      const navLinks = $$('nav.desktop a');
-      if(!sections.length) return;
-      // IntersectionObserver with thresholds
-      const headerH = parseInt(getComputedStyle(document.documentElement).getPropertyValue('--header-height')) || 76;
-      const rootMargin = `-${headerH + 20}px 0px -40% 0px`; // helps choose when a section becomes active
-      const io = new IntersectionObserver((entries)=>{
-        entries.forEach(ent=>{
-          if(ent.isIntersecting){
-            const id = ent.target.id;
-            navLinks.forEach(a => a.classList.toggle('active', a.getAttribute('href') === ('#'+id)));
-          }
-        });
-      }, { root: null, threshold: 0.12, rootMargin });
-      sections.forEach(s => io.observe(s));
-    }
-
-    /* ---------- Notices fallback (replace with Firestore if needed) ---------- */
-    function loadNoticesFallback(){
-      const list = $('#notice-list');
-      if(!list) return;
-      const fallback = [
-        { title: 'Admission Open', body: 'Admissions open for Nursery–Class 10. Contact +91-9128116022.' },
-        { title: 'PTM Friday', body: 'Parent-Teacher meeting at 2 PM this Friday.' },
-        { title: 'Drawing Workshop', body: 'Drawing & Computer workshop for classes 3-8.' }
-      ];
-      list.innerHTML = '';
-      fallback.forEach(n=>{
-        const el = document.createElement('div');
-        el.className = 'notice-item';
-        el.innerHTML = `<div class="notice-title">${escapeHTML(n.title)}</div><div style="margin-top:6px;color:#15414a">${escapeHTML(n.body)}</div>`;
-        list.appendChild(el);
-      });
-    }
-
-    function escapeHTML(s){ if(!s) return ''; return String(s).replaceAll('&','&amp;').replaceAll('<','&lt;').replaceAll('>','&gt;').replaceAll('"','&quot;').replaceAll("'",'&#39;'); }
-
-    /* ---------- YouTube autoplay when visible (muted), unmute button ---------- */
-    const YT_FRAME = $('#yt-frame');
-    let isPlaying = false;
-    function initVideoObserver(){
-      if(!YT_FRAME) return;
-      const thresholds = Array.from({length:21}, (_,i)=>i/20);
-      const io = new IntersectionObserver((entries)=>{
-        entries.forEach(e=>{
-          const ratio = e.intersectionRatio;
-          if(ratio >= 0.6){
-            if(!isPlaying){
-              // play muted (works if embed allows autoplay)
-              if(!YT_FRAME.src.includes('autoplay=1')) YT_FRAME.src = YT_FRAME.src + (YT_FRAME.src.includes('?') ? '&autoplay=1' : '?autoplay=1&mute=1');
-              isPlaying = true;
-            }
-          } else {
-            if(isPlaying){
-              try { YT_FRAME.contentWindow.postMessage('{"event":"command","func":"pauseVideo","args":""}', '*'); } catch(e){}
-              isPlaying = false;
-            }
-          }
-        });
-      }, { threshold: thresholds });
-      io.observe($('#video'));
-    }
-
-    $('#unmute-btn')?.addEventListener('click', ()=>{
-      if(!YT_FRAME) return;
-      // user gesture: reload with mute=0
-      let src = YT_FRAME.src;
-      if(src.includes('mute=1')) src = src.replace('mute=1','mute=0');
-      if(!src.includes('autoplay=1')) src += (src.includes('?') ? '&autoplay=1' : '?autoplay=1&mute=0');
-      YT_FRAME.src = src;
-      $('#unmute-btn').setAttribute('aria-pressed','true');
-      $('#unmute-btn').textContent = 'Mute';
+    // YouTube unmute: replace src to enable sound (autoplay with sound often blocked, so reload with autoplay=1&mute=0)
+    document.getElementById('unmute').addEventListener('click', ()=>{
+      const f = document.getElementById('yt-frame');
+      const base = 'https://www.youtube.com/embed/byPiWJ2Obpc?rel=0&modestbranding=1&playsinline=1&enablejsapi=1';
+      f.src = base + '&autoplay=1&mute=0';
     });
 
-    /* ---------- Fallback SVGs ---------- */
-    function svgLogo(){
-      return `<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 200' width='200' height='200'><defs><style>.t{font-family:Inter,Arial,sans-serif;font-weight:700;fill:#fff}</style></defs><rect width='200' height='200' rx='18' fill='${'#0b4f8a'}'/><circle cx='100' cy='100' r='60' fill='#b71c1c'/><text x='100' y='96' text-anchor='middle' font-size='18' class='t'>INDO</text><text x='100' y='122' text-anchor='middle' font-size='13' class='t'>OXFORD</text></svg>`;
-    }
-    function heroFallbackSVG(){
-      const ns = 'http://www.w3.org/2000/svg';
-      const svg = document.createElementNS(ns,'svg');
-      svg.setAttribute('viewBox','0 0 140 96');
-      svg.setAttribute('width','140'); svg.setAttribute('height','96');
-      svg.innerHTML = `<rect width="100%" height="100%" rx="8" fill="#e9f6ff"></rect><g transform="translate(8,10)"><rect width="124" height="76" rx="6" fill="#fff" stroke="#eef6fb"></rect><rect x="8" y="8" width="48" height="44" rx="4" fill="#0b4f8a"></rect><rect x="64" y="10" width="48" height="10" rx="3" fill="#dfeffd"></rect><rect x="64" y="26" width="48" height="18" rx="3" fill="#f6fbff"></rect></g>`;
-      return svg;
-    }
-
-    /* ---------- Initialization ---------- */
-    document.addEventListener('DOMContentLoaded', ()=>{
-      setHeaderVar();
-      bindAnchors();
-      bindAnchors(); // ensure mobile anchors too
-      bindAnchorsEvents();
-      bindNavAnchorsClickClose();
-      bindAnchorsClick();
-      bindAnchorsActiveOnLoad();
-      bindAnchorsSmoothLink();
-      bindAnchorsScrollSpy();
-      bindAnchors(); // safe double-bind, harmless
-
-      // simplified init functions (modular)
-      bindAnchorsAll();
-      loadNoticesFallback();
-      initVideoObserver();
-      initScrollSpy();
-
-      // helpers to re-calc header on resize/orientation
-      window.addEventListener('resize', ()=> { setHeaderVar(); });
+    // Small UX: show/hide broken images gracefully
+    document.querySelectorAll('img').forEach(img=>{
+      img.addEventListener('error', ()=>{ img.style.opacity=0.85; });
     });
 
-    /* ---------- Consolidated binding functions (clean) ---------- */
-    function bindAnchorsAll(){
-      // use our anchor binding logic
-      bindAnchors();
-    }
-
-    function bindAnchorsEvents(){
-      // mobile nav close on link click (mobile)
-      $('#mobile-nav')?.addEventListener('click', (e)=>{
-        if(e.target && e.target.closest('a')){
-          setTimeout(()=>{ $('#mobile-nav').style.display='none'; $('#mobile-nav').setAttribute('aria-hidden','true'); $('#menu-toggle')?.setAttribute('aria-expanded','false'); }, 50);
-        }
-      });
-    }
-
-    function bindNavAnchorsClickClose(){
-      // desktop links also close mobile nav if somehow open
-      $$('nav.desktop a').forEach(a=>{
-        a.addEventListener('click', ()=> {
-          if($('#mobile-nav') && $('#mobile-nav').style.display==='block'){
-            $('#mobile-nav').style.display='none';
-            $('#menu-toggle')?.setAttribute('aria-expanded','false');
-          }
-        });
-      });
-    }
-
-    function bindAnchorsClick(){
-      bindAnchors(); // already defined above
-    }
-
-    // scroll spy implementation (improved)
-    function initScrollSpy(){
-      const navLinks = $$('nav.desktop a');
-      const sections = $$('main [id]');
-      if(!sections.length) return;
-      const headerH = parseInt(getComputedStyle(document.documentElement).getPropertyValue('--header-height')) || 76;
-      const io = new IntersectionObserver((entries)=>{
-        entries.forEach(entry=>{
-          if(entry.isIntersecting){
-            const id = entry.target.id;
-            navLinks.forEach(a => a.classList.toggle('active', a.getAttribute('href') === ('#'+id)));
-          }
-        });
-      }, { root:null, threshold: 0.25, rootMargin: `-${headerH}px 0px -40% 0px` });
-      sections.forEach(s => io.observe(s));
-    }
-
-    function bindAnchorsClickClose(){
-      // alias
-      bindAnchors();
-    }
-
-    // older/wrapper versions to keep code readable for you
-    function bindAnchorsClickCloseNoop(){}
-    function bindAnchorsActiveOnLoad(){ /* no-op */ }
-    function bindAnchorsSmoothLink(){ /* smooth handled by smoothScrollTo */ }
-    function bindAnchors(){ // final working binding
-      const anchors = $$('a[href^="#"]');
-      anchors.forEach(a=>{
-        a.addEventListener('click', (ev)=>{
-          const href = a.getAttribute('href');
-          if(!href || href === '#') return;
-          const id = href.slice(1);
-          const target = document.getElementById(id);
-          if(target){
-            ev.preventDefault();
-            smoothScrollTo(target);
-            if(mobileNav && mobileNav.style.display === 'block'){
-              mobileNav.style.display = 'none';
-              mobileNav.setAttribute('aria-hidden','true');
-              menuToggle?.setAttribute('aria-expanded','false');
-            }
-          }
-        }, {passive:true});
-      });
-    }
-
-    /* ---------- Minimal scroll-spy init (final) ---------- */
-    function initScrollSpy(){
-      const navLinks = $$('nav.desktop a');
-      const sections = $$('main [id]');
-      if(!sections.length) return;
-      const headerH = parseInt(getComputedStyle(document.documentElement).getPropertyValue('--header-height')) || 76;
-      const io = new IntersectionObserver((entries)=>{
-        entries.forEach(entry=>{
-          if(entry.isIntersecting){
-            const id = entry.target.id;
-            navLinks.forEach(a => a.classList.toggle('active', a.getAttribute('href') === ('#'+id)));
-          }
-        });
-      }, { root:null, threshold: 0.2, rootMargin: `-${headerH}px 0px -40% 0px` });
-      sections.forEach(s => io.observe(s));
-    }
-
-    /* ---------- Final helpers ---------- */
-    function setHeaderVar(){ const h = document.querySelector('header'); const height = h ? Math.ceil(h.getBoundingClientRect().height) : 76; document.documentElement.style.setProperty('--header-height', height + 'px'); }
-
-    // small compatibility for hero fallback using inline function (used in HTML)
-    window.heroFallbackSVG = heroFallbackSVG;
-    window.svgLogo = svgLogo;
   </script>
 </body>
 </html>
